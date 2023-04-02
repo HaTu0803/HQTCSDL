@@ -28,7 +28,7 @@ activate_error_handlers(app);
 
 app.engine('hbs', engine({
   extname: 'hbs',
-  defaultLayout: 'main.hbs',
+  defaultLayout: 'home.hbs',
   helpers: {
     section: hbs_sections(),
   }
