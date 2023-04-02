@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách nhân viên</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .add-btn, .edit-btn, .delete-btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .add-btn:hover, .edit-btn:hover, .delete-btn:hover {
+            background-color: #3e8e41;
+        }
+        .container {
+            padding-top: 100px;
+        }
+
+        h2 {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<section class="container">
+    <h2>Danh sách admin</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã NV</th>
+            <th>Họ và tên</th>
+            <th>Chọn</th>
+        </tr>
+        </thead>
+        <!-- <tbody>
+            <tr>
+                <td>1</td>
+                <td>NV001</td>
+                <td>Nguyễn Văn A</td>
+                <td><input type="checkbox" name="check[]" value="NV001"></td>
+
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>NV002</td>
+                <td>Trần Thị B</td>
+                <td><input type="checkbox" name="check[]" value="NV002"></td>
+
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>NV003</td>
+                <td>Hoàng Văn C</td>
+                <td><input type="checkbox" name="check[]" value="NV003"></td>
+
+            </tr>
+        </tbody> -->
+    </table>
+
+    <button class="add-btn">Thêm</button>
+    <button class="delete-btn">Xóa </button>
+    <button class="edit-btn">Sửa </button>
+</section>
+</body>
+</html>
