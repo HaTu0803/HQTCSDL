@@ -27,6 +27,11 @@ router.get('/theodoidonhang', function (req, res) {
         layout: 'KhachHang/main1'
     })
 })
+router.get('/timkiem', function (req, res) {
+    res.render('vwKhachHang/news', {
+        layout: 'KhachHang/main1'
+    })
+})
 router.get('/danhgiadonhang', function (req, res) {
     res.render('vwKhachHang/rate', {
         layout: 'KhachHang/main1'
