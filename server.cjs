@@ -3,7 +3,7 @@ const sql = require('mssql');
 const config = {
   server: 'localhost',
   user: 'sa',
-  password: 'sa',
+  password: '123',
   database: 'QLGH',
   options: {
     trustServerCertificate: true
