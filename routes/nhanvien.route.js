@@ -24,9 +24,11 @@ router.get('/home', function (req, res) {
     })
 })
 
-router.get('/dsHopDongChuaKy', function (req, res) {
+router.get('/dsHopDongChuaKy', async function (req, res) {
+    const list = await NhanvienService.findAllHopDongChuaKy()
     res.render('vwNhanVien/dsHopDongChuaKy', {
-        layout: 'NhanVien/main1'
+        layout: 'NhanVien/main1',
+        list: list
     })
 })
 

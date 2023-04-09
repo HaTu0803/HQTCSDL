@@ -115,19 +115,46 @@
     <table>
         <thead>
         <tr>
-            <th>STT</th>
-            <th>Mã NV</th>
-            <th>Họ và tên</th>
-            <th>Chọn</th>
+            <th>Mã đơn đăng ký</th>
+            <th>Mã nhân viên</th>
+            <th>Tên ngân hàng</th>
+            <th>Địa chỉ NH</th>
+            <th>STK</th>
+            <th>Mã hợp đồng</th>
+            <th>Email</th>
+            <th>Tên cửa hàng</th>
+            <th>Thành phố</th>
+            <th>Quận</th>
+            <th>Số chi nhánh</th>
+            <th>Số lượng chi nhánh</th>
+            <th>SL Đơn hàng mỗi ngày </th>
+            <th>Người đại diện</th>
+            <th>Số điện thoại</th>
         </tr>
         </thead>
         <tbody>
         {{#each this.list}}
 
             <tr>
-                <td></td>
-                <td>{{MANV}}</td>
-                <td>{{TENNV}}</td>
+                <td>{{MADDK}}</td>
+                <td>{{MAHD}}</td>
+                <td>{{TENNH}}</td>
+                <td>{{DIACHINH}}</td>
+                <td>{{STK}}</td>
+                <td>{{MADDK}}</td>
+                <td>{{TENCUAHANG}}</td>
+                <td>{{MASOTHUE}}</td>
+                <td>{{THOIGIANHIEULUC}}</td>
+                <td>{{NGAYLAP}}</td>
+                <td>{{PHANTRAMHOAHONG}}</td>
+                <td>{{SOCHINHANHDK}}</td>
+                <td>{{NGUOIDADIEN}}</td>
+                <td>{{TRANGTHAI}}</td>
+                <td>{{THANHPHO}}</td>
+                <td>{{QUAN}}</td>
+                <td>{{DIACHI}}</td>
+                <td>{{LOAIAMTHUC}}</td>
+                <td>{{SDT}}</td>
                 <td><input type="checkbox" name="check[]" value={{MANV}}></td>
             </tr>
         {{/each}}
@@ -136,49 +163,50 @@
 
     </table>
     <div id="combo-button">
-        <button class="add-btn" onclick="openModal()">Thêm</button>
-        <button class="delete-btn">Xóa </button>
-        <button class="edit-btn">Sửa </button>
+        <button class="add-btn" onclick="openModal()">Duyệt</button>
+<!--        <button class="delete-btn">Xóa </button>-->
+<!--        <button class="edit-btn">Sửa </button>-->
     </div>
 
-
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <form action="/themNhanVien" method="POST">
-                <label for="maNV">Mã NV:</label>
-                <input type="text" id="maNV" name="maNV"><br>
-
-                <label for="tenNV">Tên NV:</label>
-                <input type="text" id="tenNV" name="tenNV"><br>
-
-                <input class="submit" type="submit" value="Lưu">
-            </form>
-        </div>
-    </div>
 </section>
-
 </body>
-<script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
+<!--    <div id="myModal" class="modal">-->
 
-    // Get the button that opens the modal
-    var btn = document.getElementsByTagName("button")[0];
+<!--        &lt;!&ndash; Modal content &ndash;&gt;-->
+<!--        <div class="modal-content">-->
+<!--            <span class="close" onclick="closeModal()">&times;</span>-->
+<!--            <form action="/themNhanVien" method="POST">-->
+<!--                <label for="maNV">Mã NV:</label>-->
+<!--                <input type="text" id="maNV" name="maNV"><br>-->
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+<!--                <label for="tenNV">Tên NV:</label>-->
+<!--                <input type="text" id="tenNV" name="tenNV"><br>-->
 
-    // When the user clicks the button, open the modal
-    function openModal() {
-        modal.style.display = "block";
-    }
+<!--                <input class="submit" type="submit" value="Lưu">-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 
-    // When the user clicks on <span> (x), close the modal
-    function closeModal() {
-        modal.style.display = "none";
-    }
-</script>
+<!--</body>-->
+<!--<script>-->
+<!--    // Get the modal-->
+<!--    var modal = document.getElementById("myModal");-->
+
+<!--    // Get the button that opens the modal-->
+<!--    var btn = document.getElementsByTagName("button")[0];-->
+
+<!--    // Get the <span> element that closes the modal-->
+<!--    var span = document.getElementsByClassName("close")[0];-->
+
+<!--    // When the user clicks the button, open the modal-->
+<!--    function openModal() {-->
+<!--        modal.style.display = "block";-->
+<!--    }-->
+
+<!--    // When the user clicks on <span> (x), close the modal-->
+<!--    function closeModal() {-->
+<!--        modal.style.display = "none";-->
+<!--    }-->
+<!--</script>-->
 </html>
