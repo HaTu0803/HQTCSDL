@@ -10,6 +10,7 @@ export default {
             console.log(error);
         }
     }
+
 }
 
 // module.exports = {

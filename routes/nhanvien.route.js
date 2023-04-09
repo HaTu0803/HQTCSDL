@@ -1,10 +1,10 @@
 import express from "express";
-import nhanvienService from "../services/nhanvien.service.js";
 import NhanvienService from "../services/nhanvien.service.js";
 
 const router = express.Router();
 
 router.get('/signin', function (req, res) {
+    req.session.retUrl = req.headers.referer
     res.render('vwNhanVien/signin', {
         layout: 'NhanVien/main'
     })
@@ -12,9 +12,6 @@ router.get('/signin', function (req, res) {
 router.post('/signin', function (req, res) {
     const username = req.body.username
     const password = req.body.password
-
-    // Check dang nhap
-
 
     res.redirect("/nhanvien/home")
 })

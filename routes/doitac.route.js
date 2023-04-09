@@ -1,4 +1,5 @@
 import express from "express";
+import DoitacService from "../services/doitac.service.js";
 
 const router = express.Router();
 
@@ -53,6 +54,17 @@ router.get('/chinhanh', function (req, res) {
         layout: 'DoiTac/main1'
     })
 })
+
+router.get('/thucdon', async function (req, res) {
+    const list = await DoitacService.findAllThucDon()
+    res.render('vwDoiTac/thucdon', {
+        layout: 'DoiTac/main1',
+        empty: list.length === 0,
+        list: list
+
+    })
+})
+
 router.get('/doanhthu', function (req, res) {
     res.render('vwDoiTac/doanhthu', {
         layout: 'DoiTac/main1'

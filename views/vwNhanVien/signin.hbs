@@ -89,7 +89,7 @@
                         <h3 class="card-title text-center mb-3 fw-light fs-5">Sign In</h3>
                         <h4 class="card-title text-center mb-5  fs-3" style="color: #333745; font-weight: lighter; font-size: 14px">Fill in your credentials and click on the the Sign in button
                         </h4>
-                        <form method="POST">
+                        <form method="POST" onsubmit="login(event)">
                             <div class="form-floating mb-3 ">
                                 <label for="floatingUsername"  class="font-weight-bold">Username</label>
                                 <input type="text" class="form-control" id="floatingUsername"  placeholder="Your username">
@@ -133,5 +133,18 @@
 </body>
 
 <script>
+    const login = async (event) => {
+        event.preventDefault();
 
+        const username = document.getElementById('floatingUsername').value;
+        const password = document.getElementById('floatingPassword').value;
+
+        try {
+            const response = await login(username, password);
+            window.location.href = response.redirectUrl;
+        } catch (error) {
+            console.log(error);
+            // Show error message to the user
+        }
+    };
 </script>

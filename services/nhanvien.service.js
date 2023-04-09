@@ -1,4 +1,6 @@
 import db from '../utils/db.js';
+import knex from 'knex'
+import bcrypt from 'bcryptjs';
 
 export default {
     async findAllHopDongDaKy() {
@@ -19,5 +21,44 @@ export default {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+
+
+    // async login(username,password) {
+    //     const [rows, fields] = await conn.execute(
+    //         'SELECT MANV, lockaccount, accounttype as permission, pass FROM accounts WHERE MANV = ?',
+    //         [username]
+    //     );
+    //
+    //     if (rows.length === 0) {
+    //         // Username not found
+    //         return null;
+    //     }
+    //
+    //     const user = rows[0];
+    //
+    //     if (user.lockaccount === 1) {
+    //         // Account locked
+    //         return null;
+    //     }
+    //
+    //     const validPassword = await bcrypt.compare(password, user.pass);
+    //
+    //     if (!validPassword) {
+    //         // Invalid password
+    //         return null;
+    //     }
+    //
+    //     // Remove password from user object
+    //     delete user.pass;
+    //
+    //     await conn.end();
+    //
+    //     return user;
+    //
+    // }
+
+
+
+
 }
