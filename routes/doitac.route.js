@@ -57,10 +57,13 @@ router.get('/chinhanh', function (req, res) {
 
 router.get('/thucdon', async function (req, res) {
     const list = await DoitacService.findAllThucDon()
+    const list1 = await DoitacService.findAllMonAn_doitac()
     res.render('vwDoiTac/thucdon', {
         layout: 'DoiTac/main1',
         empty: list.length === 0,
-        list: list
+        list: list,
+        list1: list1
+
 
     })
 })

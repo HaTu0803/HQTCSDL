@@ -13,8 +13,8 @@ export default {
     async findAllMonAn_doitac() {
         const sql = `select * from MONAN`
         try {
-            const list = await db.raw(sql)
-            return list
+            const list1 = await db.raw(sql)
+            return list1
         } catch (error) {
             console.log(error);
         }
