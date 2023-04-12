@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +49,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal {
             display: none; /* Ẩn cửa sổ pop-up ban đầu */
             position: fixed; /* Tạo cửa sổ pop-up cố định */
@@ -60,7 +59,7 @@
             width: 100%; /* Đặt chiều rộng của cửa sổ pop-up */
             height: 100%; /* Đặt chiều cao của cửa sổ pop-up */
             overflow: auto; /* Cho phép scroll nội dung trong cửa sổ pop-up */
-            background-color: rgba(0,0,0,0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
+            background-color: rgba(0, 0, 0, 0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
         }
 
         .modal-content {
@@ -84,13 +83,14 @@
             cursor: pointer;
         }
 
-        #combo-button{
+        #combo-button {
             display: flex;
             justify-content: center;
             align-items: center;
 
         }
-        .submit{
+
+        .submit {
             display: flex;
 
             background-color: #FFC7C7;
@@ -98,7 +98,8 @@
             align-items: center;
 
         }
-        .submit:hover{
+
+        .submit:hover {
             display: flex;
 
             justify-content: center;
@@ -106,7 +107,8 @@
             background-color: #FF9F9F;
 
         }
-        .monan{
+
+        .monan {
             background: #aaaaaa;
         }
 
@@ -115,54 +117,245 @@
 </head>
 <body>
 <section class="container">
-    <h2>Danh sách nhân viên</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Tên thực đơn đồ ăn</th>
-            <th>Số lượng món</th>
-        </tr>
-        </thead>
-        <tbody>
+    <h2>Thông tin sản phẩm</h2>
+    <!--    <table>-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--            <th>Tên thực đơn đồ ăn</th>-->
+    <!--            <th>Số lượng món</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+        <!--        {{#each this.list}}-->
+    <!--            <tr>-->
+    <!--                <td class="menu-name">{{TENTDDA}}</td>-->
+
+    <!--                <td>{{SOLUONGMON}}</td>-->
+    <!--            </tr>-->
+        <!--        {{/each}}-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+
+    <!--    <table id="menu-table" style="display:none">-->
+    <!--        <thead>-->
+    <!--        <tr class="monan">-->
+    <!--            <th>Tên món ăn</th>-->
+    <!--            <th>Miêu tả</th>-->
+    <!--            <th>Giá</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+        <!--        {{#each this.list1}}-->
+    <!--            <tr>-->
+    <!--                <td contenteditable="true">{{TENMA}}</td>-->
+    <!--                <td contenteditable="true">{{MIEUTA}}</td>-->
+    <!--                <td contenteditable="true">{{GIA}}</td>-->
+    <!--            </tr>-->
+        <!--        {{/each}}-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+    <!--</section>-->
+
+    <!--</body>-->
+    <!--<script>-->
+    <!--    const menuName = document.querySelectorAll('.menu-name');-->
+    <!--    const menuTable = document.querySelector('#menu-table');-->
+
+    <!--    menuName.forEach((name) => {-->
+    <!--        name.addEventListener('click', () => {-->
+    <!--            menuTable.style.display = 'table';-->
+    <!--        });-->
+    <!--    });-->
+    <!--</script>-->
+
+    <label for="madtDropdown">Mã đối tác:</label>
+    <select id="madtDropdown">
+        <option value=""></option>
         {{#each this.list}}
-            <tr>
-                <td class="menu-name">{{TENTDDA}}</td>
-
-                <td>{{SOLUONGMON}}</td>
-            </tr>
+            <option value="{{MADT}}">{{MADT}}</option>
         {{/each}}
-        </tbody>
-    </table>
-
-    <table id="menu-table" style="display:none">
-        <thead>
-        <tr class="monan">
-            <th>Tên món ăn</th>
-            <th>Miêu tả</th>
-            <th>Giá</th>
-        </tr>
-        </thead>
-        <tbody>
+    </select>
+    <br>
+    <label for="matddaDropdown">Mã Thực đơn:</label>
+    <select id="matddaDropdown">
+        <option value=""></option>
         {{#each this.list1}}
-            <tr>
-                <td contenteditable="true">{{TENMA}}</td>
-                <td contenteditable="true">{{MIEUTA}}</td>
-                <td contenteditable="true">{{GIA}}</td>
-            </tr>
+            <option value="{{MATD_DA}}">{{MATD_DA}}</option>
         {{/each}}
-        </tbody>
-    </table>
-</section>
+    </select>
+    <br>
+    <label for="mamaDropdown">Mã Món ăn:</label>
+    <select id="mamaDropdown">
+        <option value=""></option>
+        {{#each this.list2}}
+            <option value="{{MAMA}}">{{MAMA}}</option>
+        {{/each}}
+    </select>
+<br>
+<!--    <label for="tenDTInput">Tên đối tác:</label>-->
+<!--    <input type="text" id="tenDTInput"><br>-->
+<!--    <label for="tenTDInput">Tên thực đơn:</label>-->
+<!--    <input type="text" id="tenTDInput">-->
+<!--    <br>-->
+    <label for="tenMAInput">Tên món ăn:</label>
+    <input type="text" id="tenMAInput">
+    <br>
+    <label for="giaInput">Giá:</label>
+    <input type="number" id="giaInput">
+    <br>
+    <label for="mieutaInput">Miêu tả:</label>
 
+    <textarea id="mieutaInput" ></textarea>
+    <br>
+    <button id="updateButton">Cập nhật</button>
+    <button id="deleteButton">Xóa</button>
+    <button id="cancelButton">Hủy</button>
+
+
+</section>
+/
 </body>
 <script>
-    const menuName = document.querySelectorAll('.menu-name');
-    const menuTable = document.querySelector('#menu-table');
+    // get references to the dropdowns
+    const madtDropdown = document.getElementById('madtDropdown');
+    const matddaDropdown = document.getElementById('matddaDropdown');
+    const mamaDropdown = document.getElementById('mamaDropdown');
+    const giaInput = document.getElementById('giaInput');
+    const mieutaInput = document.getElementById('mieutaInput');
+    // const tenTDInput = document.getElementById('tenTDInput');
+    const tenMAInput = document.getElementById('tenMAInput');
+    // const tenDTInput = document.getElementById('tenDTInput');
 
-    menuName.forEach((name) => {
-        name.addEventListener('click', () => {
-            menuTable.style.display = 'table';
-        });
+
+    // listen to the change event on the Mã đối tác dropdown
+    madtDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        const selectedMadt = madtDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Mã Thực đơn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/matdda?madt=${selectedMadt}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the Mã Thực đơn dropdown options
+                const matddaData = JSON.parse(xhr.responseText);
+                matddaDropdown.innerHTML = '';
+                matddaDropdown.appendChild(document.createElement('option'));
+                matddaData.forEach((item) => {
+                    const option = document.createElement('option');
+                    option.value = item.MATD_DA;
+                    option.textContent = item.MATD_DA;
+                    matddaDropdown.appendChild(option);
+                });
+                // tenDTInput.value = matddaData[0].TENQUAN;
+                // tenTDInput.value = matddaData[0].TENTDDA;
+
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+        // try {
+        //     const response = await fetch(`/api/matdda?madt=${selectedMadt}`);
+        //     const matddaData = await response.json();
+        //     // update the price and description input fields
+        //
+        //     tenTDInput.value = matddaData[0].TENTDDA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
     });
+    matddaDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        const selectedMatdda = matddaDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Mã Thực đơn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/mama?matdda=${selectedMatdda}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the Mã Thực đơn dropdown options
+                const mamaData = JSON.parse(xhr.responseText);
+                mamaDropdown.innerHTML = '';
+                mamaDropdown.appendChild(document.createElement('option'));
+                mamaData.forEach((item) => {
+                    const option = document.createElement('option');
+                    option.value = item.MAMA;
+                    option.textContent = item.MAMA;
+                    mamaDropdown.appendChild(option);
+                });
+                // tenTDInput.value = mamaData[0].TENTDDA;
+
+                // tenMAInput.value = mamaData[0].TENMA;
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+        // try {
+        //     const response = await fetch(`/api/mama?matdda=${selectedMatdda}`);
+        //     const mamaData = await response.json();
+        //     // update the price and description input fields
+        //     tenTDInput.value = mamaData[0].TENTDDA;
+        //
+        //     // tenMAInput.value = mamaData[0].TENMA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+    mamaDropdown.addEventListener('change', async () => {
+        // get the selected Mã món ăn value
+        const selectedMama = mamaDropdown.value;
+        const selectedMatdda = matddaDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Món ăn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the price and description input fields
+                const monanData = JSON.parse(xhr.responseText);
+                giaInput.value = monanData[0].GIA;
+                mieutaInput.value = monanData[0].MIEUTA;
+                tenMAInput.value = monanData[0].TENMA;
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+
+        // // get the corresponding Món ăn data from the server using async/await
+        // try {
+        //     const response = await fetch(`/api/monan?mama=${selectedMama}`);
+        //     const monanData = await response.json();
+        //     // update the price and description input fields
+        //     giaInput.value = monanData[0].GIA;
+        //     mieutaInput.value = monanData[0].MIEUTA;
+        //     tenMAInput.value = monanData[0].TENMA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+
+
+
 </script>
 </html>

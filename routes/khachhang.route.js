@@ -1,6 +1,7 @@
 import express from "express";
 import AdminService from "../services/khachhang.service.js";
 import KhachhangService from "../services/khachhang.service.js";
+import DoitacService from "../services/doitac.service.js";
 
 const router = express.Router();
 
@@ -30,12 +31,19 @@ router.get('/theodoidonhang', function (req, res) {
     })
 })
 router.get('/timkiem', async function (req, res) {
-    const list = await KhachhangService.findAllMonAn()
+    const list = await KhachhangService.findAllDoitac()
+    const list1 = await KhachhangService.findAllMaThucDon()
+    const list2 = await KhachhangService.findAllMonAn()
+
+
     console.log(list)
     res.render('vwKhachHang/news', {
-        list: list,
-        empty: list.length === 0,
-        layout: 'KhachHang/main1'
+        layout: 'KhachHang/main1',
+        // empty: list.length === 0,
+        list : list,
+        list1: list1,
+        list2: list2
+
 
     })
 })

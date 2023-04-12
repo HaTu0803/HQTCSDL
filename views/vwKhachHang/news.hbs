@@ -74,196 +74,320 @@
         font-weight: 400;
 
     }
+
+     .container {
+         padding-top: 100px;
+     }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* Style cho phần tử label */
+    label {
+        display: inline-block;
+        width: 100px;
+        margin-right: 10px;
+    }
+
+    /* Style cho phần tử input */
+    input {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    /* Style cho phần tử textarea */
+    textarea {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    /* Style cho phần tử select */
+    select {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    /* Style cho phần tử button */
+    button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+\0
 </style>
+
 </head>
 <body>
     <section class="background1">
         <div class="container ">
 
-        <p class="text-center" id="map"> GIAO HÀNG ĐẾN</p>
-            <div id="group" class="row g-2">
-                <div class="col">
-                    <span id="text"><strong>BẠN ĂN GÌ CHƯA?</strong></span>
-                </div>
-                <div class="col">
-                    <select class="search-option">
-                        <option value="food" selected>Tìm kiếm Món Ăn</option>
-                        <option value="store">Tìm kiếm Cửa hàng</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Nhập từ khóa...">
-                        <button type="button" id="search-button"><i class="bi bi-search"></i></button>
-                    </div>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn-search">Tìm kiếm</button>
-                </div>
-            </div>
-
-            <style>
-                .container {
-                    padding-top: 100px;
-                }
-            </style>
 
 
-            <div class="card">
-<!--                <h4 class="card-header">-->
-<!--                    Món Ăn-->
-<!--                </h4>-->
-                {{#if this.empty}}
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Không có dữ liệu!
-                        </h5>
-                    </div>
-                {{else}}
-                    <div class="card-body">
-                        <div class="row">
-                            {{#each this.list}}
-                                <div class="col-sm-4 mb-3">
-                                    <div class="card h-100">
-                                        <img class="card-img-top" src="{{image_path}}" alt="{{TENMA}}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{TENMA}}</h5>
-                                            <h5 class="card-title text-danger">{{GIA}}</h5>
-                                            <p class="card-text">{{MIETUTA}}</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{id}}" role="button">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                                Details
-                                            </a>
-                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                                Add to cart
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {{/each}}
-                        </div>
-                        <nav aria-label="...">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <span class="page-link">Previous</span>
-                                </li>
-                                {{#each this.pageNumbers}}
-                                    {{#if isCurrent}}
-                                        <li class="page-item active" aria-current="page">
-                                            <span class="page-link">{{value}}</span>
-                                        </li>
-                                    {{else}}
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page={{value}}">{{value}}</a>
-                                        </li>
-                                    {{/if}}
-                                {{/each}}
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                {{/if}}
+
+            <label for="madtDropdown">Mã đối tác:</label>
+            <select id="madtDropdown">
+                <option value=""></option>
+                {{#each this.list}}
+                    <option value="{{MADT}}">{{MADT}}</option>
+                {{/each}}
+            </select>
+            <br>
+            <label for="matddaDropdown">Mã Thực đơn:</label>
+            <select id="matddaDropdown">
+                <option value=""></option>
+                {{#each this.list1}}
+                    <option value="{{MATD_DA}}">{{MATD_DA}}</option>
+                {{/each}}
+            </select>
+            <br>
+            <label for="mamaDropdown">Tên Món Ăn:</label>
+            <select id="mamaDropdown">
+                <option value=""></option>
+                {{#each this.list2}}
+                    <option value="{{MAMA}}">{{TENMA}}</option>
+                {{/each}}
+            </select>
+            <br>
+
+
+<!--            <div class="card">-->
+<!--&lt;!&ndash;                <h4 class="card-header">&ndash;&gt;-->
+<!--&lt;!&ndash;                    Món Ăn&ndash;&gt;-->
+<!--&lt;!&ndash;                </h4>&ndash;&gt;-->
+<!--                {{#if this.empty}}-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">-->
+<!--                            Không có dữ liệu!-->
+<!--                        </h5>-->
+<!--                    </div>-->
+<!--                {{else}}-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="row">-->
+<!--                            {{#each this.list}}-->
+<!--                                <div class="col-sm-4 mb-3">-->
+<!--                                    <div class="card h-100">-->
+<!--                                        <div class="card-body">-->
+<!--                                            <h5 class="card-title">Tên đôí tác {{TENDT}}</h5>-->
+<!--                                            <h5 class="card-title">Tên thực đơn {{TENTDDA}}</h5>-->
+<!--                                            <h5 class="card-title">Tên món ăn: {{TENMA}}</h5>-->
+<!--                                            <h5 class="card-title text-danger">Giá món: {{GIA}}</h5>-->
+<!--                                            <p class="card-text">Miêu tả:{{MIETUTA}}</p>-->
+<!--                                        </div>-->
+<!--                                        <div class="card-footer">-->
+<!--                                            <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{id}}" role="button">-->
+<!--                                                <i class="fa fa-eye" aria-hidden="true"></i>-->
+<!--                                                Details-->
+<!--                                            </a>-->
+<!--                                            <a class="btn btn-sm btn-outline-success" href="#" role="button">-->
+<!--                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
+<!--                                                Add to cart-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            {{/each}}-->
+<!--                        </div>-->
+<!--                        <nav aria-label="...">-->
+<!--                            <ul class="pagination">-->
+<!--                                <li class="page-item disabled">-->
+<!--                                    <span class="page-link">Previous</span>-->
+<!--                                </li>-->
+<!--                                {{#each this.pageNumbers}}-->
+<!--                                    {{#if isCurrent}}-->
+<!--                                        <li class="page-item active" aria-current="page">-->
+<!--                                            <span class="page-link">{{value}}</span>-->
+<!--                                        </li>-->
+<!--                                    {{else}}-->
+<!--                                        <li class="page-item">-->
+<!--                                            <a class="page-link" href="?page={{value}}">{{value}}</a>-->
+<!--                                        </li>-->
+<!--                                    {{/if}}-->
+<!--                                {{/each}}-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">Next</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </nav>-->
+<!--                    </div>-->
+<!--                {{/if}}-->
 <!--                <div class="card-footer text-muted">-->
 <!--                    Footer-->
 <!--                </div>-->
-            </div>
-        </div>
-
-
-
-            <!--            <div class="card-body container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-sm-4 mb-3">-->
-<!--                        <div class="card h-100">-->
-<!--                            <img class="card-img-top" src="/public/img/logo.png" alt="{{ProName}}">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">Bút Chì</h5>-->
-<!--                                <h5 class="card-title text-danger">1,000,000đ</h5>-->
-<!--                                <p class="card-text">Sản phẩm đến từ tương lai</p>-->
-<!--                            </div>-->
-<!--                            <div class="card-footer">-->
-<!--                                <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">-->
-<!--                                    <i class="fa fa-eye" aria-hidden="true"></i>-->
-<!--                                    Details-->
-<!--                                </a>-->
-<!--                                <a class="btn btn-sm btn-outline-success" href="#" role="button">-->
-<!--                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-<!--                                    Add to cart-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-4 mb-3">-->
-<!--                        <div class="card h-100">-->
-<!--                            <img class="card-img-top" src="/public/img/logo.png" alt="{{ProName}}">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">Bút Chì</h5>-->
-<!--                                <h5 class="card-title text-danger">1,000,000đ</h5>-->
-<!--                                <p class="card-text">Sản phẩm đến từ tương lai</p>-->
-<!--                            </div>-->
-<!--                            <div class="card-footer">-->
-<!--                                <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">-->
-<!--                                    <i class="fa fa-eye" aria-hidden="true"></i>-->
-<!--                                    Details-->
-<!--                                </a>-->
-<!--                                <a class="btn btn-sm btn-outline-success" href="#" role="button">-->
-<!--                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-<!--                                    Add to cart-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-4 mb-3">-->
-<!--                        <div class="card h-100">-->
-<!--                            <img class="card-img-top" src="/public/img/logo.png" alt="{{ProName}}">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">Bút Chì</h5>-->
-<!--                                <h5 class="card-title text-danger">1,000,000đ</h5>-->
-<!--                                <p class="card-text">Sản phẩm đến từ tương lai</p>-->
-<!--                            </div>-->
-<!--                            <div class="card-footer">-->
-<!--                                <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">-->
-<!--                                    <i class="fa fa-eye" aria-hidden="true"></i>-->
-<!--                                    Details-->
-<!--                                </a>-->
-<!--                                <a class="btn btn-sm btn-outline-success" href="#" role="button">-->
-<!--                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-<!--                                    Add to cart-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-4 mb-3">-->
-<!--                        <div class="card h-100">-->
-<!--                            <img class="card-img-top" src="/public/img/logo.png" alt="{{ProName}}">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">Bút Chì</h5>-->
-<!--                                <h5 class="card-title text-danger">1,000,000đ</h5>-->
-<!--                                <p class="card-text">Sản phẩm đến từ tương lai</p>-->
-<!--                            </div>-->
-<!--                            <div class="card-footer">-->
-<!--                                <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">-->
-<!--                                    <i class="fa fa-eye" aria-hidden="true"></i>-->
-<!--                                    Details-->
-<!--                                </a>-->
-<!--                                <a class="btn btn-sm btn-outline-success" href="#" role="button">-->
-<!--                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-<!--                                    Add to cart-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
 <!--            </div>-->
-
 <!--        </div>-->
 
-        {{!-- ĐỌC THÔNG TIN HÌNH ẢNH MÓN ĂN, TRỎ VÀO MÓN ĂN HIỆN RA MÔ TẢ --}}
+            <label for="tenMAInput">Tên món ăn:</label>
+            <input type="text" id="tenMAInput" readonly>
+            <br>
+            <label for="giaInput">Giá:</label >
+            <input type="number" id="giaInput" readonly>
+            <br>
+            <label for="mieutaInput">Miêu tả:</label>
+
+            <textarea id="mieutaInput" readonly ></textarea>
+            <br>
+            <label for="muahangDropdown">Hình thức thanh toán:</label>
+            <select id="muahangDropdown">
+                <option value="tienmat">Thanh toán trực tiếp </option>
+                <option value="Momo">Momo </option>
+                <option value="Zalopay">Zalopay </option>
+            </select>
+            <br>
+                <button id="updateButton">Mua</button>
+
+        </div>
+
     </section>
 </body>
+<script>
+    const madtDropdown = document.getElementById('madtDropdown');
+    const matddaDropdown = document.getElementById('matddaDropdown');
+    const mamaDropdown = document.getElementById('mamaDropdown');
+    const giaInput = document.getElementById('giaInput');
+    const mieutaInput = document.getElementById('mieutaInput');
+    // const tenTDInput = document.getElementById('tenTDInput');
+    const tenMAInput = document.getElementById('tenMAInput');
+    // const tenDTInput = document.getElementById('tenDTInput');
 
+
+    // listen to the change event on the Mã đối tác dropdown
+    madtDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        const selectedMadt = madtDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Mã Thực đơn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/matdda?madt=${selectedMadt}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the Mã Thực đơn dropdown options
+                const matddaData = JSON.parse(xhr.responseText);
+                matddaDropdown.innerHTML = '';
+                matddaDropdown.appendChild(document.createElement('option'));
+                matddaData.forEach((item) => {
+                    const option = document.createElement('option');
+                    option.value = item.MATD_DA;
+                    option.textContent = item.MATD_DA;
+                    matddaDropdown.appendChild(option);
+                });
+                // tenDTInput.value = matddaData[0].TENQUAN;
+                // tenTDInput.value = matddaData[0].TENTDDA;
+
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+        // try {
+        //     const response = await fetch(`/api/matdda?madt=${selectedMadt}`);
+        //     const matddaData = await response.json();
+        //     // update the price and description input fields
+        //
+        //     tenTDInput.value = matddaData[0].TENTDDA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+    matddaDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        const selectedMatdda = matddaDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Mã Thực đơn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/mama?matdda=${selectedMatdda}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the Mã Thực đơn dropdown options
+                const mamaData = JSON.parse(xhr.responseText);
+                mamaDropdown.innerHTML = '';
+                mamaDropdown.appendChild(document.createElement('option'));
+                mamaData.forEach((item) => {
+                    const option = document.createElement('option');
+                    option.value = item.MAMA;
+                    option.textContent = item.TENMA;
+                    mamaDropdown.appendChild(option);
+                });
+                // tenTDInput.value = mamaData[0].TENTDDA;
+
+                // tenMAInput.value = mamaData[0].TENMA;
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+        // try {
+        //     const response = await fetch(`/api/mama?matdda=${selectedMatdda}`);
+        //     const mamaData = await response.json();
+        //     // update the price and description input fields
+        //     tenTDInput.value = mamaData[0].TENTDDA;
+        //
+        //     // tenMAInput.value = mamaData[0].TENMA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+    mamaDropdown.addEventListener('change', async () => {
+        // get the selected Mã món ăn value
+        const selectedMama = mamaDropdown.value;
+        const selectedMatdda = matddaDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Món ăn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the price and description input fields
+                const monanData = JSON.parse(xhr.responseText);
+                giaInput.value = monanData[0].GIA;
+                mieutaInput.value = monanData[0].MIEUTA;
+                tenMAInput.value = monanData[0].TENMA;
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+
+        // // get the corresponding Món ăn data from the server using async/await
+        // try {
+        //     const response = await fetch(`/api/monan?mama=${selectedMama}`);
+        //     const monanData = await response.json();
+        //     // update the price and description input fields
+        //     giaInput.value = monanData[0].GIA;
+        //     mieutaInput.value = monanData[0].MIEUTA;
+        //     tenMAInput.value = monanData[0].TENMA;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+
+
+</script>

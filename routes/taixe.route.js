@@ -7,5 +7,9 @@ router.get('/signin', function (req, res) {
         layout: 'TaiXe/main'
     })
 })
-
+router.get('/home', function (req, res) {
+    res.render('vwTaiXe/home', {
+        layout: 'vwTaiXe/main1'
+    })
+})
 export default router
