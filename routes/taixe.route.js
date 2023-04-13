@@ -1,4 +1,5 @@
 import express from "express";
+// import TaixeService from "../services/taixe.service.js";
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/signin', function (req, res) {
 })
 router.get('/home', function (req, res) {
     res.render('vwTaiXe/home', {
-        layout: 'vwTaiXe/main1'
+        layout: 'TaiXe/main1'
     })
 })
 export default router

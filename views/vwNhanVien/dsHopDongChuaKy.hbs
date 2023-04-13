@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +49,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal {
             display: none; /* Ẩn cửa sổ pop-up ban đầu */
             position: fixed; /* Tạo cửa sổ pop-up cố định */
@@ -60,7 +59,7 @@
             width: 100%; /* Đặt chiều rộng của cửa sổ pop-up */
             height: 100%; /* Đặt chiều cao của cửa sổ pop-up */
             overflow: auto; /* Cho phép scroll nội dung trong cửa sổ pop-up */
-            background-color: rgba(0,0,0,0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
+            background-color: rgba(0, 0, 0, 0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
         }
 
         .modal-content {
@@ -84,13 +83,14 @@
             cursor: pointer;
         }
 
-        #combo-button{
+        #combo-button {
             display: flex;
             justify-content: center;
             align-items: center;
 
         }
-        .submit{
+
+        .submit {
             display: flex;
 
             background-color: #FFC7C7;
@@ -98,7 +98,8 @@
             align-items: center;
 
         }
-        .submit:hover{
+
+        .submit:hover {
             display: flex;
 
             justify-content: center;
@@ -111,7 +112,14 @@
 </head>
 <body>
 <section class="container">
-    <h2>Danh sách nhân viên</h2>
+    <h2>HỢP ĐỒNG CHỜ DUYỆT</h2>
+    <label for="maddkDropdown">Mã đơn đăng ký:</label>
+    <select id="maddkDropdown">
+        <option value=""></option>
+        {{#each this.list}}
+            <option value="{{MADDK}}">{{MADDK}}</option>
+        {{/each}}
+    </select>
     <table>
         <thead>
         <tr>
@@ -119,43 +127,46 @@
             <th>Mã nhân viên</th>
             <th>Tên ngân hàng</th>
             <th>Địa chỉ NH</th>
+
             <th>STK</th>
-            <th>Mã hợp đồng</th>
             <th>Email</th>
             <th>Tên cửa hàng</th>
             <th>Thành phố</th>
             <th>Quận</th>
             <th>Số chi nhánh</th>
-            <th>Số lượng chi nhánh</th>
-            <th>SL Đơn hàng mỗi ngày </th>
-            <th>Người đại diện</th>
+            <th>SL Đơn hàng mỗi ngày</th>
+            <th>Loại ẩm thực</th>
+
+            <th>Địa chỉ</th>
             <th>Số điện thoại</th>
+
+            <th>Người đại diện</th>
         </tr>
         </thead>
         <tbody>
-        {{#each this.list}}
 
+        {{#each this.list}}
             <tr>
                 <td>{{MADDK}}</td>
-                <td>{{MAHD}}</td>
+                <td>{{MANV}}</td>
+
+                <!--                <td>{{MAHD}}</td>-->
                 <td>{{TENNH}}</td>
                 <td>{{DIACHINH}}</td>
                 <td>{{STK}}</td>
-                <td>{{MADDK}}</td>
-                <td>{{TENCUAHANG}}</td>
-                <td>{{MASOTHUE}}</td>
-                <td>{{THOIGIANHIEULUC}}</td>
-                <td>{{NGAYLAP}}</td>
-                <td>{{PHANTRAMHOAHONG}}</td>
-                <td>{{SOCHINHANHDK}}</td>
-                <td>{{NGUOIDADIEN}}</td>
-                <td>{{TRANGTHAI}}</td>
+                <td>{{EMAIL}}</td>
+                <td>{{TENQUAN}}</td>
                 <td>{{THANHPHO}}</td>
                 <td>{{QUAN}}</td>
-                <td>{{DIACHI}}</td>
+                <td>{{SOCHINHANH}}</td>
+                <td>{{SLDONHANGMN}}</td>
                 <td>{{LOAIAMTHUC}}</td>
+                <td>{{DIACHI}}</td>
+                <td>{{NGUOIDD}}</td>
+
                 <td>{{SDT}}</td>
-                <td><input type="checkbox" name="check[]" value={{MANV}}></td>
+
+
             </tr>
         {{/each}}
         </tbody>
@@ -164,49 +175,88 @@
     </table>
     <div id="combo-button">
         <button class="add-btn" onclick="openModal()">Duyệt</button>
-<!--        <button class="delete-btn">Xóa </button>-->
-<!--        <button class="edit-btn">Sửa </button>-->
-    </div>
 
+    </div>
 </section>
 </body>
-<!--    <div id="myModal" class="modal">-->
+<script>
+    const dropdown = document.getElementById("maddkDropdown");
+    const tableBody = document.querySelector("tbody");
 
-<!--        &lt;!&ndash; Modal content &ndash;&gt;-->
-<!--        <div class="modal-content">-->
-<!--            <span class="close" onclick="closeModal()">&times;</span>-->
-<!--            <form action="/themNhanVien" method="POST">-->
-<!--                <label for="maNV">Mã NV:</label>-->
-<!--                <input type="text" id="maNV" name="maNV"><br>-->
+    // Attach a change event listener to the dropdown
+    dropdown.addEventListener("change", function () {
+        // Get the selected value from the dropdown
+        const selectedValue = dropdown.value;
+        if (selectedValue === "") {
+            fetch(`/api/allddky`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Clear the existing rows in the table body
+                        tableBody.innerHTML = "";
 
-<!--                <label for="tenNV">Tên NV:</label>-->
-<!--                <input type="text" id="tenNV" name="tenNV"><br>-->
+                        // Loop through the new data and append rows to the table body
+                        data.forEach(row => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+          <td>${row.MADDK}</td>
+          <td>${row.MANV}</td>
+          <td>${row.TENNH}</td>
+          <td>${row.DIACHINH}</td>
+          <td>${row.STK}</td>
+          <td>${row.EMAIL}</td>
+          <td>${row.TENQUAN}</td>
+          <td>${row.THANHPHO}</td>
+          <td>${row.QUAN}</td>
+          <td>${row.SOCHINHANH}</td>
+          <td>${row.SLDONHANGMN}</td>
+          <td>${row.LOAIAMTHUC}</td>
+          <td>${row.DIACHI}</td>
+          <td>${row.NGUOIDD}</td>
+          <td>${row.SDT}</td>
+        `;
+                            tableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        }
+        else {
+            fetch(`/api/ddky?maddk=${selectedValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Clear the existing rows in the table body
+                        tableBody.innerHTML = "";
 
-<!--                <input class="submit" type="submit" value="Lưu">-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+                        // Loop through the new data and append rows to the table body
+                        data.forEach(row => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+          <td>${row.MADDK}</td>
+          <td>${row.MANV}</td>
+          <td>${row.TENNH}</td>
+          <td>${row.DIACHINH}</td>
+          <td>${row.STK}</td>
+          <td>${row.EMAIL}</td>
+          <td>${row.TENQUAN}</td>
+          <td>${row.THANHPHO}</td>
+          <td>${row.QUAN}</td>
+          <td>${row.SOCHINHANH}</td>
+          <td>${row.SLDONHANGMN}</td>
+          <td>${row.LOAIAMTHUC}</td>
+          <td>${row.DIACHI}</td>
+          <td>${row.NGUOIDD}</td>
+          <td>${row.SDT}</td>
+        `;
+                            tableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        }
+        // Send an AJAX request to the server to fetch the new data
 
-<!--</body>-->
-<!--<script>-->
-<!--    // Get the modal-->
-<!--    var modal = document.getElementById("myModal");-->
-
-<!--    // Get the button that opens the modal-->
-<!--    var btn = document.getElementsByTagName("button")[0];-->
-
-<!--    // Get the <span> element that closes the modal-->
-<!--    var span = document.getElementsByClassName("close")[0];-->
-
-<!--    // When the user clicks the button, open the modal-->
-<!--    function openModal() {-->
-<!--        modal.style.display = "block";-->
-<!--    }-->
-
-<!--    // When the user clicks on <span> (x), close the modal-->
-<!--    function closeModal() {-->
-<!--        modal.style.display = "none";-->
-<!--    }-->
-<!--</script>-->
+    });
+</script>
 </html>

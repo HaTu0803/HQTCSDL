@@ -13,7 +13,7 @@ export default {
         }
     },
     async findAllHopDongChuaKy() {
-        const sql = `select * from DON_DK`
+        const sql = `select * from DON_DK where MANV is NULL`
         try {
             const list = await db.raw(sql)
             console.log(list);
@@ -22,6 +22,16 @@ export default {
             console.log(error);
         }
     },
+    async findAllHopDongChuaKyTheoMa(maddk) {
+        const sql = `select * from DON_DK where MANV is NULL and MADDK = '${maddk}'`
+        try {
+            const list = await db.raw(sql)
+            console.log(list);
+            return list
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     // async login(username,password) {

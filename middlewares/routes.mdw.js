@@ -6,6 +6,7 @@ import TaixeRoute from "../routes/taixe.route.js";
 import AccountRoute from "../routes/account.route.js";
 import authWithRequiredPermission from "./auth.mdw.js";
 import DoitacService from "../services/doitac.service.js";
+import NhanvienService from "../services/nhanvien.service.js";
 
 export default function (app) {
   app.get('/', function (req, res) {
@@ -40,5 +41,15 @@ export default function (app) {
     const { mama,matd } = req.query;
     const list2 = await DoitacService.findAllMonAn(mama,matd);
     res.send(list2);
+  });
+  app.get('/api/ddky', async function (req, res) {
+    const { maddk} = req.query;
+    const list = await NhanvienService.findAllHopDongChuaKyTheoMa(maddk);
+    res.send(list);
+  });
+  app.get('/api/allddky', async function (req, res) {
+    const { maddk} = req.query;
+    const list = await NhanvienService.findAllHopDongChuaKy();
+    res.send(list);
   });
 }
