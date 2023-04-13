@@ -36,5 +36,16 @@ export default {
         } catch (error) {
             console.log(error);
         }
+    },
+    async findAllDonHang(madh) {
+        const sql = `select TINHTRANG from DONHANG where MADH = '${madh}'`
+
+        try {
+            const list1 = await db.raw(sql)
+            console.log(list1)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

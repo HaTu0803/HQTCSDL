@@ -1,129 +1,206 @@
 {{#section 'css'}}
-<!--    <link rel="stylesheet" href="/public/CSS/admin.css">-->
+    <link rel="stylesheet" href="public/CSS/doitac.css">
+
 {{/section}}
-<style>
-    #hero{
-        background-color: #FFF8F8;
-    }
-    .list {
-        position: absolute;
-        margin-top: 60px;
-        right: 160px; }
 
-    h1 {
-        padding-top: 100px; }
-    .btn-search{
-        background-color: #ffdad7;
-        margin-left: 20px;
+<head>
 
-    }
-    #text{
-        margin-right: 20px;
-        margin-top: 10px;
-    }
-    #map{
-        padding-right: 1000px;
-        padding-top: 60px;
-    }
-    #group{
-        padding-top: 60px;
-        padding-left: 350px;
+    <style>
 
-    }
+        .background1{
+            background-color: #FFF8F8;
+            padding-top: 100px;
+            height: 100vh;
 
-    h4 {
-        padding-top: 20px;
-        padding-right: 200px;
-    }
-    .number p, .number input {
-        display: inline-block;
-        vertical-align: middle;
-    }
-    .number input {
-        margin-right: 10px; /* khoảng cách giữa input và p */
-    }
-    .number{
-        display: block;
-        margin: 250px auto;
-        text-align: center;
+            /*padding-left: 100px;*/
+        }
 
-    }
-    .center-button {
-        display: block;
-        margin: -240px auto;
-        text-align: center;
-    }
-    .payment{
-        display: block;
-        padding-left: 38em;
-        padding-top: 3em;
-        margin-bottom: 20px;
 
-    }
 
-    .payment-image {
-        margin-right: 30px;
-    }
-    .payment-radio{
-        margin-right: 0;
+        #map {
+            font-weight: bold;
+            display: flex;
 
-    }
-    .pass div, .pass button {
-        display: inline-block;
-    }
-    .pass {
+            align-items: center;
+        }
 
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    .pass input {
-        margin-right: 70px;
-        margin-left: 70px;
+        #text {
+            margin-right: 10px;
+        }
 
-    }
-    
-    .button{
-        display: block;
-        margin: 20px auto;
-        height: 35px;width: 100px;
-    }
+        .search-container {
+            display: flex;
+        }
 
-        .post {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
+        .search-option {
+            flex: 1;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            padding: 6px 12px;
+            height: 38px;
+        }
 
-    }
+        .search-bar {
+            flex: 3;
+            display: flex;
+        }
 
-    .post span {
-      text-align: left;
-      margin-right: 10px;
-      width: 100px;
-      display: inline-block;
-    }
-</style>
-<section id="hero">
-    <h1 class = "text-center">THEO DÕI ĐƠN HÀNG</h1>
-    <img class="payment-image" src="/public/img/image6.png" alt="Ảnh thanh toán" style="display:flex;justify-content: center;  margin: auto;"/>
-    <form action="#"  style=" margin-top: 50px;">
-        <p class="post">
-            <span id="text"><strong>NHẬP MÃ ĐƠN HÀNG</strong></span>
-            <input type="text" style="background-color: #F2EBEB; border:#000000"/>
-        </p>
-        <button class="button" type="button" style="background-color: #ffdad7;border:#000000;height: 35px;width: 200px">
+        #search-input {
+            flex: 3;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 6px 12px;
+            height: 38px;
+        }
 
-            TIẾP TỤC
-        </button>
-        <p class="post">
-            <span id="text"><strong>TRẠNG THÁI</strong></span>
-            <input type="text" style="background-color: #F2EBEB; border:#000000"/>
+        #search-button {
+            flex: 1;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            height: 38px;
+        }
 
-        </p>
-    </form>
-    <button class="button" type="button" style="background-color: #ffdad7;border:#000000;height: 35px;width: 200px">
-        CẬP NHẬT
-    </button>
+        .btn-search {
+            border: 1px solid #FFDAD7;
+            border-radius: 8px;
+            letter-spacing: 0.05rem;
+            padding: 0.6rem 1rem;
+            color: black;
+            background-color: #FFDAD7;
+
+            font-style: normal;
+            font-weight: 400;
+
+        }
+
+        .container {
+            padding-top: 100px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Style cho phần tử label */
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+
+        /* Style cho phần tử input */
+        input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        /* Style cho phần tử textarea */
+        textarea {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        /* Style cho phần tử select */
+        select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        /* Style cho phần tử button */
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        \0
+    </style>
+
+</head>
+<body>
+<section class="background1">
+    <div class="container ">
+
+
+
+
+        <label for="madhDropdown">Mã đơn hàng:</label>
+        <select id="madhDropdown">
+            <option value=""></option>
+            {{#each this.list}}
+                <option value="{{MADH}}">{{MADH}}</option>
+            {{/each}}
+        </select>
+        <br>
+
+
+
+        <label for="tenTTInput">Tình trạng:</label>
+        <input type="text" id="tenTTInput" readonly>
+        <br>
+
+        <button id="cancelButton">Hủy</button>
+
+    </div>
+
 </section>
+</body>
+<script>
+    const madhDropdown = document.getElementById('madhDropdown');
+
+    // const tenTDInput = document.getElementById('tenTDInput');
+    const tenTTInput = document.getElementById('tenTTInput');
+    // const tenDTInput = document.getElementById('tenDTInput');
+
+
+    // listen to the change event on the Mã đối tác dropdown
+    madhDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        const selectedMadh = madhDropdown.value;
+
+        // make an AJAX request to the server to get the corresponding Mã Thực đơn data
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/tinhtrang?madh=${selectedMadh}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the price and description input fields
+                const madhData = JSON.parse(xhr.responseText);
+                tenTTInput.value = madhData[0].TINHTRANG;
+
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
+
+        // try {
+        //     const response = await fetch(`/api/tinhtrang?madh=${selectedMadh}`);
+        //     const madhData = await response.json();
+        //     // update the price and description input fields
+        //
+        //     tenTTInput.value = madhData[0].TINHTRANG;
+        // } catch (error) {
+        //     // handle errors
+        //     console.error('Error:', error);
+        // }
+    });
+
+
+
+</script>

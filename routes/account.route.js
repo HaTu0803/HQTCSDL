@@ -3,6 +3,7 @@ import express from "express";
 const router = express.Router();
 
 router.get('/signin', async function(req, res){
+    req.session.retUrl = req.headers.referer
     res.render('vwAccount/signin', {
         layout: 'main'
     })

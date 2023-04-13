@@ -25,9 +25,11 @@ router.get('/home', function (req, res) {
         layout: 'KhachHang/main1'
     })
 })
-router.get('/theodoidonhang', function (req, res) {
+router.get('/theodoidonhang', async function (req, res) {
+    const list = await KhachhangService.findAllDonHang()
     res.render('vwKhachHang/follow', {
-        layout: 'KhachHang/main1'
+        layout: 'KhachHang/main1',
+        list: list
     })
 })
 router.get('/timkiem', async function (req, res) {
