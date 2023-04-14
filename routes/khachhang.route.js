@@ -54,5 +54,10 @@ router.get('/danhgiadonhang', function (req, res) {
         layout: 'KhachHang/main1'
     })
 })
+router.get('/dathang', function (req, res) {
+    res.render('vwKhachHang/order', {
+        layout: 'KhachHang/main1'
+    })
+})
 
 export default router

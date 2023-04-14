@@ -10,6 +10,15 @@ export default {
     //         console.log(error);
     //     }
     // },
+    async findAllMaChiNhanh(madt) {
+        const sql = `select * from CHINHANH where MADT = '${madt}'`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
     async findAllDoitac() {
         const sql = `select * from DOITAC`
         try {
@@ -38,7 +47,7 @@ export default {
         }
     },
     async findAllMonAn(mama,matd) {
-        const sql = `select GIA,MIEUTA,TENMA from MONAN where MAMA = '${mama}' and MATD_DA='${matd}'`
+        const sql = `select * from MONAN where MAMA = '${mama}' and MATD_DA='${matd}'`
         try {
             const list1 = await db.raw(sql)
             return list1

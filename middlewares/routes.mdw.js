@@ -29,14 +29,28 @@ export default function (app) {
 // assuming you have an API endpoint that receives the MADT value
 // and returns the corresponding MATDDA data in JSON format
   // ĐỐI TÁC---------------------------------------------------------
+  app.get('/api/madt', async function (req, res) {
+    const {macn} = req.query;
+    const list = await DoitacService.findAllMaDoiTac(macn);
+    res.send(list);
+  });
   app.get('/api/matdda', async function (req, res) {
     const {madt} = req.query;
     const list = await DoitacService.findAllMaThucDon(madt);
     res.send(list);
   });
+  app.get('/api/macn', async function (req, res) {
+    const {madt} = req.query;
+    const list = await DoitacService.findAllMaChiNhanh(madt);
+    res.send(list);
+  });
   app.get('/api/mama', async function (req, res) {
     const {matdda} = req.query;
     const list1 = await DoitacService.findAllMonAn_doitac(matdda);
+    res.send(list1);
+  });
+  app.get('/api/allmama', async function (req, res) {
+    const list1 = await KhachhangService.findAllMonAn();
     res.send(list1);
   });
   app.get('/api/monan', async function (req, res) {
@@ -115,6 +129,16 @@ export default function (app) {
     const madh = req.query.madh;
     const tinhtrang = await KhachhangService.findAllDonHang(madh);
     res.json({ TINHTRANG: tinhtrang });
+  });
+  app.get('/api/allmonan', async function (req, res) {
+    // const {madh} = req.query;
+    const list = await KhachhangService.findAllDanhSach();
+    res.send(list);
+  });
+  app.get('/api/alldh', async function (req, res) {
+    const {madh} = req.query;
+    const list = await TaixeService.findAllDonHang();
+    res.send(list);
   });
 
   // ADMIN ---------------------------------------------------------
