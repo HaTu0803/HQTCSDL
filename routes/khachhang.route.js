@@ -54,9 +54,15 @@ router.get('/danhgiadonhang', function (req, res) {
         layout: 'KhachHang/main1'
     })
 })
-router.get('/dathang', function (req, res) {
+router.get('/dathang', async function (req, res) {
+    const list = await KhachhangService.findAllDoitac()
+    const list1 = await KhachhangService.findAllMaThucDon()
+    const list2 = await KhachhangService.findAllMonAn()
     res.render('vwKhachHang/order', {
-        layout: 'KhachHang/main1'
+        layout: 'KhachHang/main1',
+        list: list,
+        list1: list1,
+        list2: list2
     })
 })
 

@@ -41,7 +41,7 @@ router.get('/home', function (req, res) {
 })
 
 router.get('/dsNhanVien', async function (req, res) {
-    const list = await AdminService.findAllNhanVien()
+    // const list = await AdminService.findAllNhanVien()
     console.log(list)
     res.render('vwAdmin/dsNhanVien', {
         list: list,

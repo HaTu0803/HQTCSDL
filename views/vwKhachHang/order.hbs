@@ -6,48 +6,62 @@
 <head>
 
     <style>
+        /* Style for h2 element */
+        h2 {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style for table element */
         table {
             border-collapse: collapse;
             width: 100%;
             text-align: center;
+            background-color: white; /* đổi màu nền của bảng */
+
         }
 
+        /* Style for table header and data cells */
         th, td {
             padding: 8px;
             text-align: center;
             border-bottom: 1px solid #ddd;
         }
 
+        /* Style for table row on hover */
         tr:hover {
             background-color: #f5f5f5;
         }
 
+        /* Style for background color of an element with class 'background1' */
         .background1 {
             background-color: #FFF8F8;
             padding-top: 100px;
             height: 100vh;
-
-            /*padding-left: 100px;*/
         }
 
-
+        /* Style for container element */
         .container {
             padding-top: 100px;
+            padding-bottom: 100px;
         }
 
+        /* Style for body element */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #FFF8F8;
         }
 
-        /* Style cho phần tử label */
+        /* Style for label element */
         label {
             display: inline-block;
             width: 100px;
             margin-right: 10px;
         }
 
-        /* Style cho phần tử input */
+        /* Style for input element */
         input {
             padding: 5px;
             border-radius: 5px;
@@ -55,7 +69,7 @@
             margin-bottom: 10px;
         }
 
-        /* Style cho phần tử textarea */
+        /* Style for textarea element */
         textarea {
             padding: 5px;
             border-radius: 5px;
@@ -63,7 +77,7 @@
             margin-bottom: 10px;
         }
 
-        /* Style cho phần tử select */
+        /* Style for select element */
         select {
             padding: 5px;
             border-radius: 5px;
@@ -71,7 +85,7 @@
             margin-bottom: 10px;
         }
 
-        /* Style cho phần tử button */
+        /* Style for button element */
         button {
             padding: 10px;
             border-radius: 5px;
@@ -80,15 +94,16 @@
             color: #fff;
             cursor: pointer;
         }
-
-        \0
     </style>
+
 
 </head>
 <body>
 <section class="background1">
+    <h2>ĐẶT HÀNG</h2>
 
     <div class="container ">
+
         <label for="madtDropdown">Mã đối tác:</label>
         <select id="madtDropdown">
             <option value=""></option>
@@ -373,9 +388,12 @@
                         mamaDropdown.appendChild(option);
                         const tr = document.createElement("tr");
                         tr.innerHTML = `
+                     <td>${item.MADH}</td>
+
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
+                        <td>${item.SL}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
                     `;
@@ -437,9 +455,12 @@
                         data.forEach(row => {
                             const tr = document.createElement("tr");
                             tr.innerHTML = `
+                      <td>${item.MADH}</td>
+
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
+                        <td>${item.SL}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
                     `;
@@ -460,9 +481,11 @@
                         data.forEach(item => {
                             const tr = document.createElement("tr");
                             tr.innerHTML = `
+                       <td>${item.MADH}</td>
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
+                        <td>${item.SL}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
                     `;

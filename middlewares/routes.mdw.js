@@ -49,10 +49,7 @@ export default function (app) {
     const list1 = await DoitacService.findAllMonAn_doitac(matdda);
     res.send(list1);
   });
-  app.get('/api/allmama', async function (req, res) {
-    const list1 = await KhachhangService.findAllMonAn();
-    res.send(list1);
-  });
+
   app.get('/api/monan', async function (req, res) {
     const {mama, matd} = req.query;
     const list2 = await DoitacService.findAllMonAn(mama, matd);
@@ -122,6 +119,11 @@ export default function (app) {
     const list = await TaixeService.findAllDonHang();
     res.send(list);
   });
+  app.get('/api/alldh', async function (req, res) {
+    const {madh} = req.query;
+    const list = await TaixeService.findAllDonHang();
+    res.send(list);
+  });
 
   // KHÁCH HÀNG ---------------------------------------------------------
 
@@ -135,11 +137,11 @@ export default function (app) {
     const list = await KhachhangService.findAllDanhSach();
     res.send(list);
   });
-  app.get('/api/alldh', async function (req, res) {
-    const {madh} = req.query;
-    const list = await TaixeService.findAllDonHang();
-    res.send(list);
+  app.get('/api/allmama', async function (req, res) {
+    const list1 = await KhachhangService.findAllMonAn();
+    res.send(list1);
   });
+
 
   // ADMIN ---------------------------------------------------------
 
