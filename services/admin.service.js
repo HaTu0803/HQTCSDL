@@ -11,7 +11,7 @@ export default {
         }
     },
     async themNhanVien(manv,tennv) {
-        const sql = `exec P_NHANVIEN '${manv}','N'${tennv}'`
+        const sql = `exec P_NHANVIEN '${manv}',N'${tennv}'`
         try {
             await db.raw(sql)
         } catch (error) {

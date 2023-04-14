@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +9,14 @@
             width: 100%;
             text-align: center;
         }
-
         th, td {
             padding: 8px;
             text-align: center;
             border-bottom: 1px solid #ddd;
         }
-
         tr:hover {
             background-color: #f5f5f5;
         }
-
         .AddButton,.edit-btn, .delete-btn {
             background-color: #FFC7C7;
             border: none;
@@ -33,8 +29,6 @@
             cursor: pointer;
             border-radius: 4px;
             width: 100px; /* Thiết lập chiều rộng là 100px */
-
-
         }
         #addButton1,#cancelButton1{
             background-color: #FFC7C7;
@@ -47,22 +41,16 @@
             cursor: pointer;
             border-radius: 4px;
             width: 100px; /* Thiết lập chiều rộng là 100px */
-
         }
         #addButton1,#cancelButton1:hover{
             background-color: #FF9F9F;
-
-
         }
-
         .AddButton,.edit-btn:hover, .delete-btn:hover {
             background-color: #FF9F9F;
         }
-
         .container {
             padding-top: 100px;
         }
-
         h2 {
             font-weight: bold;
             display: flex;
@@ -80,17 +68,11 @@
             overflow: auto; /* Cho phép scroll nội dung trong cửa sổ pop-up */
             background-color: rgba(0,0,0,0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
         }
-
-
-
-
         #combo-button{
             display: flex;
             justify-content: center;
             align-items: center;
-
         }
-
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -102,7 +84,6 @@
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
         }
-
         /* Modal content */
         .modal-content {
             background-color: #fefefe;
@@ -111,22 +92,18 @@
             border: 1px solid #888;
             width: 50%; /* Could be more or less, depending on screen size */
         }
-
         /* Close button */
         .close {
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
         .close:hover,
         .close:focus {
             color: #000;
             text-decoration: none;
             cursor: pointer;
         }
-
-
     </style>
 </head>
 <body>
@@ -140,13 +117,13 @@
         </tr>
         </thead>
         <tbody>
-            {{#each this.list}}
+        {{#each this.list}}
 
-                <tr>
-                    <td>{{MANV}}</td>
-                    <td>{{TENNV}}</td>
-                </tr>
-            {{/each}}
+            <tr>
+                <td>{{MANV}}</td>
+                <td>{{TENNV}}</td>
+            </tr>
+        {{/each}}
         </tbody>
 
 
@@ -185,20 +162,16 @@
     document.getElementById("addButton1").addEventListener("click", async function () {
         try {
             // const result = await insertThucDon(madt, matd, mama, tenma, gia);
-
             var manvlement = document.getElementById("manvInput1");
             var manv = manvlement.value;
             var tennvlement = document.getElementById("tennvInput1");
             var tennv = tennvlement.value;
-
             // make an AJAX request to the server to get the corresponding Món ăn data
             const xhr = new XMLHttpRequest();
             xhr.open('GET', `/api/themnhanvien?manv=${manv}&tennv=${tennv}`);
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     // parse the response data and update the price and description input fields
-
-
                 } else {
                     // handle errors
                     console.error('Error:', xhr.statusText);
@@ -214,11 +187,9 @@
         }
         document.getElementById("myModal").style.display = "none";
     });
-
     document.getElementById("cancelButton1").addEventListener("click", function() {
         document.getElementById("myModal").style.display = "none";
     });
-
     // document.getElementById("updateButton").addEventListener("click", function() {
     //     try {
     //         // const result = await insertThucDon(madt, matd, mama, tenma, gia);
@@ -253,6 +224,5 @@
     //         // ha
     //     }
     // });
-
 </script>
 </html>
