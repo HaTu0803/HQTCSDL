@@ -32,6 +32,26 @@ export default {
             console.log(error);
         }
     },
+    async findAllNhanVien() {
+        const sql = `select * from NHANVIEN`
+        try {
+            const list = await db.raw(sql)
+            console.log(list);
+            return list
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllNhanVienTheoMa(manv) {
+        const sql = `select * from NHANVIEN where  MANV = '${manv}'`
+        try {
+            const list = await db.raw(sql)
+            console.log(list);
+            return list
+        } catch (error) {
+            console.log(error);
+        }
+    },
 
 
     // async login(username,password) {
@@ -68,14 +88,6 @@ export default {
     //
     // }
 
-    async findAllNhanVien() {
-        const sql = `select * from NHANVIEN`
-        try {
-            const list = await db.raw(sql)
-            return list
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
 }

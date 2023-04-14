@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +49,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal {
             display: none; /* Ẩn cửa sổ pop-up ban đầu */
             position: fixed; /* Tạo cửa sổ pop-up cố định */
@@ -60,7 +59,7 @@
             width: 100%; /* Đặt chiều rộng của cửa sổ pop-up */
             height: 100%; /* Đặt chiều cao của cửa sổ pop-up */
             overflow: auto; /* Cho phép scroll nội dung trong cửa sổ pop-up */
-            background-color: rgba(0,0,0,0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
+            background-color: rgba(0, 0, 0, 0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
         }
 
         .modal-content {
@@ -84,13 +83,14 @@
             cursor: pointer;
         }
 
-        #combo-button{
+        #combo-button {
             display: flex;
             justify-content: center;
             align-items: center;
 
         }
-        .submit{
+
+        .submit {
             display: flex;
 
             background-color: #FFC7C7;
@@ -98,7 +98,8 @@
             align-items: center;
 
         }
-        .submit:hover{
+
+        .submit:hover {
             display: flex;
 
             justify-content: center;
@@ -112,33 +113,94 @@
 <body>
 <section class="container">
     <h2>DANH SÁCH NHÂN VIÊN</h2>
+    <label for="manvDropdown">Mã nhân viên:</label>
+    <select id="manvDropdown">
+        <option value=""></option>
+        {{#each this.list}}
+            <option value="{{MANV}}">{{MANV}}</option>
+        {{/each}}
+    </select>
     <table>
         <thead>
         <tr>
-            <th>Mã NV</th>
-            <th>Họ và tên</th>
+            <th>Mã Nhân Viên</th>
+            <th>Tên Nhân Viên</th>
 
         </tr>
         </thead>
         <tbody>
-        {{#each this.list}}
 
+        {{#each this.list}}
             <tr>
                 <td>{{MANV}}</td>
                 <td>{{TENNV}}</td>
+
             </tr>
         {{/each}}
         </tbody>
 
 
     </table>
+<!--    <div id="combo-button">-->
+<!--        <button class="add-btn" onclick="openModal()">Thêm</button>-->
 
-
+<!--    </div>-->
 </section>
-
 </body>
 <script>
-    // Get the modal
+    const dropdown = document.getElementById("manvDropdown");
+    const tableBody = document.querySelector("tbody");
 
+    // Attach a change event listener to the dropdown
+    dropdown.addEventListener("change", function () {
+        // Get the selected value from the dropdown
+        const selectedValue = dropdown.value;
+        if (selectedValue === "") {
+            fetch(`/api/allnv`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Clear the existing rows in the table body
+                        tableBody.innerHTML = "";
+
+                        // Loop through the new data and append rows to the table body
+                        data.forEach(row => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+          <td>${row.MANV}</td>
+          <td>${row.TENNV}</td>
+
+        `;
+                            tableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        }
+        else {
+            fetch(`/api/nv?manv=${selectedValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Clear the existing rows in the table body
+                        tableBody.innerHTML = "";
+
+                        // Loop through the new data and append rows to the table body
+                        data.forEach(row => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+           <td>${row.MANV}</td>
+          <td>${row.TENNV}</td>
+
+        `;
+                            tableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        }
+        // Send an AJAX request to the server to fetch the new data
+
+    });
 </script>
 </html>

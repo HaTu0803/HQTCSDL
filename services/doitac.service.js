@@ -54,8 +54,17 @@ export default {
             console.log(error);
         }
     },
-    async insertHopDong(mahd,madt,maddk,manv,mst) {
-        const sql = `exec P_HOPDONG '${mahd}','${madt}','${maddk}','${manv}','${mst}'`
+    // async insertHopDong(mahd,madt,maddk,manv,mst) {
+    //     const sql = `exec P_HOPDONG '${mahd}','${madt}','${maddk}','${manv}','${mst}'`
+    //     try {
+    //         await db.raw(sql)
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // },
+    async themDonDangKy(nguoidd,email,sdt,tennh,diachinh,stk,loaiamthuc,sldonhangmn) {
+        const sql = `exec P_DON_DK '${nguoidd}','${email}','${sdt}','${tennh}','${diachinh}',
+                                ${stk}','${loaiamthuc}','${sldonhangmn}'`
         try {
             await db.raw(sql)
         } catch (error) {

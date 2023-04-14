@@ -84,7 +84,7 @@
             font-weight: 400;
         }
 
-        #submit-btn{
+        #submit-btn, #dk{
             font-family: Arial, sans-serif;
 
             border: 1px solid #FFDAD7;
@@ -101,7 +101,7 @@
             width: 200px;
 
         }
-        #submit-btn:hover{
+        #submit-btn, #dk:hover{
             font-family: Arial, sans-serif;
 
             border: 1px solid #FF9F9F;
@@ -113,6 +113,29 @@
 
             font-style: normal;
             font-weight: 400;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
     </style>
@@ -130,11 +153,11 @@
                         <!-- <h3 class="card-title text-center mb-3 fw-light fs-5">ĐĂNG KÝ HỢP ĐỒNG</h3> -->
                         <h2>ĐĂNG KÝ HỢP ĐỒNG</h2>
                         <form>
-                            <div class="form-floating mb-3 ">
-                                <label for="floatingUsername"   id="content" class="font-weight-bold">Mã đối tác <span style="color: rgb(204, 0, 0);">*</span></label>
+<!--                            <div class="form-floating mb-3 ">-->
+<!--                                <label for="floatingUsername"   id="content" class="font-weight-bold">Mã đối tác <span style="color: rgb(204, 0, 0);">*</span></label>-->
 
-                                <input type="text" class="form-control" id="floatingUsername"  placeholder="Mã đối tác">
-                            </div>
+<!--                                <input type="text" class="form-control" id="floatingUsername"  placeholder="Mã đối tác">-->
+<!--                            </div>-->
                             <div class="form-floating mb-3">
                                 <label for="representative" id="content" class="font-weight-bold">Người đại diện <span style="color: rgb(204, 0, 0);">*</span></label>
                                 <input type="text" class="form-control" id="representative"  placeholder="Người đại diện">
@@ -151,6 +174,10 @@
                             <div class="form-floating mb-3">
                                 <label for="bank" id="content" class="font-weight-bold">Tên ngân hàng <span style="color: rgb(204, 0, 0);">*</span></label>
                                 <input type="text" class="form-control" id="bank"  placeholder="Tên ngân hàng">
+                            </div>
+                            <div class="form-floating mb-3">
+                                <label for="addressbank" id="content" class="font-weight-bold">Địa chỉ ngân hàng<span style="color: rgb(204, 0, 0);">*</span></label>
+                                <input type="text" class="form-control" id="addressbank"  placeholder="Địa chỉ ngân hàng">
                             </div>
 
                             <div class="form-floating mb-3 ">
@@ -179,11 +206,11 @@
                                 <!-- <button id ="submit-btn" >Xác nhận</button> -->
                                 <div id="branches-table"></div>
 
-                                <button onclick="showAddressTable(event)">Đăng kí địa chỉ</button>
+                                <button id ="dk" onclick="showAddressTable(event)">Đăng kí địa chỉ</button>
                                 <div id="address-table"></div>
                             </div>
                             <div class="form-floating mb-6 " >
-                                <button class="btn btn-primary btn-login fw-bold w-100 font-weight-bold" type="submit">
+                                <button id ="AddButton" class="btn btn-primary btn-login fw-bold w-100 font-weight-bold" type="submit">
                                     Đăng ký</button>
                             </div>
 
@@ -209,14 +236,14 @@
         try {
             const response = await axios.get('https://provinces.open-api.vn/api/?depth=1');
             const data = response.data;
-            var tableHtml = "<table><thead><tr><th>Tên chi nhánh</th><th>Số nhà,Tên đường</th><th>Thành phố/Tỉnh</th><th>Quận/Huyện</th><th>Phường/Xã</th></tr></thead><tbody>";
+            var tableHtml = "<table><thead><tr><th>Tên chi nhánh</th><th>Địa chỉ</th><th>Thành phố/Tỉnh</th><th>Quận/Huyện</th></tr></thead><tbody>";
             for (var i = 0; i < numBranches; i++) {
                 tableHtml += "<tr><td><input type='text' name='branch_name_" + i + "'></td><td><input type='text' name='address_" + i + "'></td><td><select name='city_" + i + "' onchange='onCitySelect(this)'><option value=''>--Select city--</option>";
                 // Add the city options to the select element
                 data.forEach(city => {
                     tableHtml += "<option value='" + city.code + "'>" + city.name + "</option>";
                 });
-                tableHtml += "</select></td><td><select name='district_" + i + "' onchange='onDistrictSelect(this)'><option value=''>--Select district--</option></select></td><td><select name='ward_" + i + "'><option value=''>--Select ward--</option></select></td></tr>";
+                tableHtml += "</select></td><td><select name='district_" + i + "' onchange='onDistrictSelect(this)'><option value=''>--Select district--</option></td></tr>";
             }
             tableHtml += "</tbody></table>";
             document.getElementById("branches-table").innerHTML = tableHtml;
@@ -245,39 +272,39 @@
         }
     }
 
-    async function onDistrictSelect(districtDropdown) {
-        var district = districtDropdown.value;
-        var wardDropdown = districtDropdown.parentNode.parentNode.querySelector("[name^='ward_']");
-
-        const host = "https://provinces.open-api.vn/api/";
-        const api = host + "d/" + district + "?depth=2";
-        try {
-            const response = await axios.get(api);
-            const data = response.data;
-            wardDropdown.innerHTML = "<option value=''>--Select ward--</option>";
-            for (const wardCode in data.wards) {
-                const ward = data.wards[wardCode];
-                wardDropdown.innerHTML += "<option value='" + ward.code + "'>" + ward.name + "</option>";
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // async function onDistrictSelect(districtDropdown) {
+    //     var district = districtDropdown.value;
+    //     var wardDropdown = districtDropdown.parentNode.parentNode.querySelector("[name^='ward_']");
+    //
+    //     const host = "https://provinces.open-api.vn/api/";
+    //     const api = host + "d/" + district + "?depth=2";
+    //     try {
+    //         const response = await axios.get(api);
+    //         const data = response.data;
+    //         wardDropdown.innerHTML = "<option value=''>--Select ward--</option>";
+    //         for (const wardCode in data.wards) {
+    //             const ward = data.wards[wardCode];
+    //             wardDropdown.innerHTML += "<option value='" + ward.code + "'>" + ward.name + "</option>";
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     function showAddressTable(event) {
         event.preventDefault(); // prevent the default form submission
         const numBranches = parseInt(document.getElementById("num_branches").value);
-        var tableHtml = "<table><thead><tr><th>Tên chi nhánh</th><th>Số nhà,Tên đường</th><th>Thành phố/Tỉnh</th><th>Quận/Huyện</th><th>Phường/Xã</th></tr></thead><tbody>";
+        var tableHtml = "<table><thead><tr><th>Tên chi nhánh</th><th>Địa chỉ</th><th>Thành phố/Tỉnh</th><th>Quận/Huyện</th></tr></thead><tbody>";
 
         for (var i = 0; i < numBranches; i++) {
             let branchName = document.getElementsByName("branch_name_" + i)[0].value;
             let address = document.getElementsByName("address_" + i)[0].value;
             let city = document.getElementsByName("city_" + i)[0].options[document.getElementsByName("city_" + i)[0].selectedIndex].text;
             let district = document.getElementsByName("district_" + i)[0].options[document.getElementsByName("district_" + i)[0].selectedIndex].text;
-            let ward = document.getElementsByName("ward_" + i)[0].options[document.getElementsByName("ward_" + i)[0].selectedIndex].text;
+            // let ward = document.getElementsByName("ward_" + i)[0].options[document.getElementsByName("ward_" + i)[0].selectedIndex].text;
 
 
-            tableHtml += "<tr><td>" + branchName + "</td><td>" + address + "</td><td>" + city + "</td><td>" + district + "</td><td>" + ward + "</td></tr>";
+            tableHtml += "<tr><td>" + branchName + "</td><td>" + address + "</td><td>" + city + "</td><td>" + district + "</td></tr>";
         }
 
         tableHtml += "</tbody></table>";
@@ -296,5 +323,66 @@
         }
     });
 
+</script>
+
+<script>
+    document.getElementById("AddButton").addEventListener("click", async function () {
+        try {
+            // const result = await insertThucDon(madt, matd, mama, tenma, gia);
+            // const selecteMadt = madtDropdown.value;
+            // const selectedMatdda = matddaDropdown.value;
+
+            var nguoiddelement = document.getElementById("representative");
+            var nguoidd = nguoiddelement.value;
+            var emailelement = document.getElementById("email");
+            var email = emailelement.value;
+            var sdtelement = document.getElementById("phone");
+            var sdt= sdtelement.value;
+            var tennhelement = document.getElementById("bank");
+            var tennh = tennhelement.value;
+            var diachinhelement = document.getElementById("addressbank");
+            var diachinh = diachinhelement.value;
+            var stkelement = document.getElementById("account-number");
+            var stk = stkelement.value;
+            var loaiamthucelement = document.getElementById("culinary-type");
+            var loaiamthuc = loaiamthucelement.value;
+            var sldonhangmnelement = document.getElementById("app-num");
+            var sldonhangmn = sldonhangmnelement.value;
+            // var slchinhanhelement = document.getElementById("num_branches");
+            // var slchinhanh = slchinhanhelement.value;
+            // var nguoiddelement = document.getElementById("representative");
+            // var nguoidd = nguoiddelement.value;
+            // var nguoiddelement = document.getElementById("representative");
+            // var nguoidd = nguoiddelement.value;
+            // var nguoiddelement = document.getElementById("representative");
+            // var nguoidd = nguoiddelement.value;
+            // var nguoiddelement = document.getElementById("representative");
+            // var nguoidd = nguoiddelement.value;
+            // var nguoiddelement = document.getElementById("representative");
+            // var nguoidd = nguoiddelement.value;
+
+
+            // make an AJAX request to the server to get the corresponding Món ăn data
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/api/themdondk?nguoidd=${nguoidd}&email=${email}&sdt=${sdt}
+                                                        &tennh=${tennh}&diachinh=${diachinh}&stk=${stk}&loaiamthuc=${loaiamthuc}&sldonhangmn=${sldonhangmn}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the price and description input fields
+
+
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        } catch (err) {
+            console.log(err);
+            // handle error
+        }
 </script>
 </html>

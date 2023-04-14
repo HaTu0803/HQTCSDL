@@ -9,6 +9,7 @@ import DoitacService from "../services/doitac.service.js";
 import NhanvienService from "../services/nhanvien.service.js";
 import TaixeService from "../services/taixe.service.js";
 import KhachhangService from "../services/khachhang.service.js";
+import AdminService from "../services/admin.service.js";
 
 export default function (app) {
   app.get('/', function (req, res) {
@@ -27,6 +28,7 @@ export default function (app) {
 
 // assuming you have an API endpoint that receives the MADT value
 // and returns the corresponding MATDDA data in JSON format
+  // ĐỐI TÁC---------------------------------------------------------
   app.get('/api/matdda', async function (req, res) {
     const {madt} = req.query;
     const list = await DoitacService.findAllMaThucDon(madt);
@@ -41,32 +43,6 @@ export default function (app) {
     const {mama, matd} = req.query;
     const list2 = await DoitacService.findAllMonAn(mama, matd);
     res.send(list2);
-  });
-  app.get('/api/ddky', async function (req, res) {
-    const {maddk} = req.query;
-    const list = await NhanvienService.findAllHopDongChuaKyTheoMa(maddk);
-    res.send(list);
-  });
-  app.get('/api/allddky', async function (req, res) {
-    const {maddk} = req.query;
-    const list = await NhanvienService.findAllHopDongChuaKy();
-    res.send(list);
-  });
-
-  app.get('/api/dh', async function (req, res) {
-    const {madh} = req.query;
-    const list = await TaixeService.findAllDonHangTheoMa(madh);
-    res.send(list);
-  });
-  app.get('/api/alldh', async function (req, res) {
-    const {madh} = req.query;
-    const list = await TaixeService.findAllDonHang();
-    res.send(list);
-  });
-  app.get('/api/tinhtrang', async function (req, res) {
-    const madh = req.query.madh;
-    const tinhtrang = await KhachhangService.findAllDonHang(madh);
-    res.json({ TINHTRANG: tinhtrang });
   });
   app.get('/api/themmonan', async function (req, res) {
     const matd = req.query.matd;
@@ -93,6 +69,63 @@ export default function (app) {
     const list = []
     await DoitacService.CapNhatMonAn(tenma,mama,matd,gia);
     // console.log(list)
+    res.send(list);
+  });
+  // NHÂN VIÊN ---------------------------------------------------------
+
+  app.get('/api/ddky', async function (req, res) {
+    const {maddk} = req.query;
+    const list = await NhanvienService.findAllHopDongChuaKyTheoMa(maddk);
+    res.send(list);
+  });
+  app.get('/api/allddky', async function (req, res) {
+    const {maddk} = req.query;
+    const list = await NhanvienService.findAllHopDongChuaKy();
+    res.send(list);
+  });
+
+  app.get('/api/nv', async function (req, res) {
+    const {manv} = req.query;
+    const list = await NhanvienService.findAllNhanVienTheoMa(manv);
+    res.send(list);
+  });
+  app.get('/api/allnv', async function (req, res) {
+    const {manv} = req.query;
+    const list = await NhanvienService.findAllNhanVien();
+    res.send(list);
+  });
+
+
+  // TÀI XẾ---------------------------------------------------------
+
+  app.get('/api/dh', async function (req, res) {
+    const {madh} = req.query;
+    const list = await TaixeService.findAllDonHangTheoMa(madh);
+    res.send(list);
+  });
+  app.get('/api/alldh', async function (req, res) {
+    const {madh} = req.query;
+    const list = await TaixeService.findAllDonHang();
+    res.send(list);
+  });
+
+  // KHÁCH HÀNG ---------------------------------------------------------
+
+  app.get('/api/tinhtrang', async function (req, res) {
+    const madh = req.query.madh;
+    const tinhtrang = await KhachhangService.findAllDonHang(madh);
+    res.json({ TINHTRANG: tinhtrang });
+  });
+
+  // ADMIN ---------------------------------------------------------
+
+  app.get('/api/themnhanvien', async function (req, res) {
+    const manv = req.query.manv;
+
+    const tennv = req.query.tennv;
+    console.log(manv)
+    const list = []
+    await AdminService.themNhanVien(manv,tennv);
     res.send(list);
   });
 }

@@ -9,7 +9,15 @@ export default {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+    async themNhanVien(manv,tennv) {
+        const sql = `exec P_NHANVIEN '${manv}','N'${tennv}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
+    },
 
 }
 

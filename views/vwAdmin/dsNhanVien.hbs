@@ -21,7 +21,7 @@
             background-color: #f5f5f5;
         }
 
-        .add-btn, .edit-btn, .delete-btn {
+        .AddButton,.edit-btn, .delete-btn {
             background-color: #FFC7C7;
             border: none;
             padding: 8px 16px;
@@ -36,8 +36,26 @@
 
 
         }
+        #addButton1,#cancelButton1{
+            background-color: #FFC7C7;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100px; /* Thiết lập chiều rộng là 100px */
 
-        .add-btn:hover, .edit-btn:hover, .delete-btn:hover {
+        }
+        #addButton1,#cancelButton1:hover{
+            background-color: #FF9F9F;
+
+
+        }
+
+        .AddButton,.edit-btn:hover, .delete-btn:hover {
             background-color: #FF9F9F;
         }
 
@@ -63,26 +81,8 @@
             background-color: rgba(0,0,0,0.4); /* Tạo hiệu ứng mờ phía sau cửa sổ pop-up */
         }
 
-        .modal-content {
-            background-color: #fefefe; /* Đặt màu nền cho nội dung của cửa sổ pop-up */
-            margin: 10% auto; /* Đặt khoảng cách giữa cửa sổ pop-up và trang web */
-            padding: 20px;
-            border: 1px solid #888; /* Đặt đường viền cho cửa sổ pop-up */
-            width: 30%; /* Đặt chiều rộng của nội dung trong cửa sổ pop-up */
-        }
 
-        .close {
-            color: #aaaaaa; /* Đặt màu chữ cho nút đóng cửa sổ pop-up */
-            float: right; /* Đặt vị trí của nút đóng cửa sổ pop-up */
-            font-size: 28px;
-            font-weight: bold;
-        }
 
-        .close:hover, .close:focus {
-            color: #000; /* Đổi màu chữ khi rê chuột vào hoặc focus vào nút đóng cửa sổ pop-up */
-            text-decoration: none;
-            cursor: pointer;
-        }
 
         #combo-button{
             display: flex;
@@ -90,22 +90,42 @@
             align-items: center;
 
         }
-        .submit{
-            display: flex;
 
-            background-color: #FFC7C7;
-            justify-content: center;
-            align-items: center;
-
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
         }
-        .submit:hover{
-            display: flex;
 
-            justify-content: center;
-            align-items: center;
-            background-color: #FF9F9F;
-
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
         }
+
+        /* Close button */
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
 
     </style>
 </head>
@@ -132,25 +152,26 @@
 
     </table>
     <div id="combo-button">
-        <button class="add-btn" onclick="openModal()">Thêm</button>
+        <button  class="AddButton" id="AddButton" >Thêm</button>
         <button class="delete-btn">Xóa </button>
         <button class="edit-btn">Sửa </button>
     </div>
 
 
     <div id="myModal" class="modal">
-
-        <!-- Modal content -->
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <form action="/themNhanVien" method="POST">
-                <label for="maNV">Mã NV:</label>
-                <input type="text" id="maNV" name="maNV"><br>
+            <span class="close">&times;</span>
+            <h3>Thêm Nhân Viên</h3>
+            <form>
+                <label for="manvInput1">Mã Nhân Viên:</label>
+                <input type="text" id="manvInput1">
+                <br>
+                <label for="tennvInput1">Tên Nhân Viên:</label>
+                <input type="text" id="tennvInput1">
+                <br>
 
-                <label for="tenNV">Tên NV:</label>
-                <input type="text" id="tenNV" name="tenNV"><br>
-
-                <input class="submit" type="submit" value="Lưu">
+                <button id="addButton1">Thêm</button>
+                <button id="cancelButton1">Hủy</button>
             </form>
         </div>
     </div>
@@ -158,23 +179,80 @@
 
 </body>
 <script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
+    document.getElementById("AddButton").addEventListener("click", function() {
+        document.getElementById("myModal").style.display = "block";
+    });
+    document.getElementById("addButton1").addEventListener("click", async function () {
+        try {
+            // const result = await insertThucDon(madt, matd, mama, tenma, gia);
 
-    // Get the button that opens the modal
-    var btn = document.getElementsByTagName("button")[0];
+            var manvlement = document.getElementById("manvInput1");
+            var manv = manvlement.value;
+            var tennvlement = document.getElementById("tennvInput1");
+            var tennv = tennvlement.value;
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+            // make an AJAX request to the server to get the corresponding Món ăn data
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/api/themnhanvien?manv=${manv}&tennv=${tennv}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the price and description input fields
 
-    // When the user clicks the button, open the modal
-    function openModal() {
-        modal.style.display = "block";
-    }
 
-    // When the user clicks on <span> (x), close the modal
-    function closeModal() {
-        modal.style.display = "none";
-    }
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        } catch (err) {
+            console.log(err);
+            // handle error
+        }
+        document.getElementById("myModal").style.display = "none";
+    });
+
+    document.getElementById("cancelButton1").addEventListener("click", function() {
+        document.getElementById("myModal").style.display = "none";
+    });
+
+    // document.getElementById("updateButton").addEventListener("click", function() {
+    //     try {
+    //         // const result = await insertThucDon(madt, matd, mama, tenma, gia);
+    //         const selecteMadt = madtDropdown.value;
+    //         const selectedMatdda = matddaDropdown.value;
+    //
+    //         var mama = mamaDropdown.value
+    //         var tenmalement = document.getElementById("tenMAInput");
+    //         var tenma = tenmalement.value;
+    //         var giamalement = document.getElementById("giaInput");
+    //         var giama = giamalement.value;
+    //
+    //         // make an AJAX request to the server to get the corresponding Món ăn data
+    //         const xhr = new XMLHttpRequest();
+    //         xhr.open('GET', `/api/capnhatmonan?matd=${selectedMatdda}&mama=${mama}&tenma=${tenma}&gia=${giama}`);
+    //         xhr.onload = () => {
+    //             if (xhr.status === 200) {
+    //                 // parse the response data and update the price and description input fields
+    //
+    //
+    //             } else {
+    //                 // handle errors
+    //                 console.error('Error:', xhr.statusText);
+    //             }
+    //         };
+    //         xhr.onerror = () => {
+    //             console.error('Error:', xhr.statusText);
+    //         };
+    //         xhr.send();
+    //     } catch (err) {
+    //         console.log(err);
+    //         // ha
+    //     }
+    // });
+
 </script>
 </html>
