@@ -60,20 +60,21 @@ router.get('/thucdon', async function (req, res) {
     const list1 = await DoitacService.findAllMaThucDon()
     const list2 = await DoitacService.findAllMonAn()
 
-
-    console.log(list)
     res.render('vwDoiTac/thucdon', {
         layout: 'DoiTac/main1',
         // empty: list.length === 0,
         list : list,
         list1: list1,
-        list2: list2
+        list2: list2,
 
 
     })
 })
 
 router.get('/doanhthu', function (req, res) {
+    // tui thu test o day nha
+    DoitacService.insertHopDong('HD_02', 'DT_02','DDK_02', 'NV_01', 'MT_02')
+
     res.render('vwDoiTac/doanhthu', {
         layout: 'DoiTac/main1'
     })

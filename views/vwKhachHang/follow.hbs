@@ -177,7 +177,15 @@
                 // parse the response data and update the price and description input fields
                 const madhData = JSON.parse(xhr.responseText);
                 tenTTInput.value = madhData[0].TINHTRANG;
-
+                // const madhData = JSON.parse(xhr.responseText);
+                // madhDropdown.innerHTML = '';
+                // madhDropdown.appendChild(document.createElement('option'));
+                // madhData.forEach((item) => {
+                //     const option = document.createElement('option');
+                //     option.value = item.MADH;
+                //     option.textContent = item.MADH;
+                //     madhDropdown.appendChild(option);
+                // });
 
             } else {
                 // handle errors

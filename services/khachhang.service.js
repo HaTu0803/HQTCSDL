@@ -41,9 +41,8 @@ export default {
         const sql = `select TINHTRANG from DONHANG where MADH = '${madh}'`
 
         try {
-            const list1 = await db.raw(sql)
-            console.log(list1)
-            return list1
+            const list = await db.raw(sql);
+            return list
         } catch (error) {
             console.log(error);
         }

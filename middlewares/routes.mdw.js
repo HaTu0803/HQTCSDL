@@ -18,7 +18,7 @@ export default function (app) {
   })
 
   app.use('/account', AccountRoute)
-  app.use('/admin', AdminRoute)
+  app.use('/admin',authWithRequiredPermission(4), AdminRoute)
   app.use('/doitac', authWithRequiredPermission(2), DoiTacRoute)
   app.use('/khachhang', authWithRequiredPermission(0), KhachhangRoute)
   app.use('/nhanvien', authWithRequiredPermission(1), NhanvienRoute)
@@ -64,8 +64,35 @@ export default function (app) {
     res.send(list);
   });
   app.get('/api/tinhtrang', async function (req, res) {
-    const {madh} = req.query;
-    const list = await KhachhangService.findAllDonHang(madh);
+    const madh = req.query.madh;
+    const tinhtrang = await KhachhangService.findAllDonHang(madh);
+    res.json({ TINHTRANG: tinhtrang });
+  });
+  app.get('/api/themmonan', async function (req, res) {
+    const matd = req.query.matd;
+
+    const mama = req.query.mama;
+
+    const tenma = req.query.tenma;
+
+    const gia = req.query.gia;
+    const mieuta = req.query.mieuta
+    const list = []
+    await DoitacService.themMonAn(matd,mama,tenma,mieuta,gia);
+    res.send(list);
+  });
+  app.get('/api/capnhatmonan', async function (req, res) {
+    const matd = req.query.matd;
+
+    const mama = req.query.mama;
+
+    const tenma = req.query.tenma;
+
+    const gia = req.query.gia;
+
+    const list = []
+    await DoitacService.CapNhatMonAn(tenma,mama,matd,gia);
+    // console.log(list)
     res.send(list);
   });
 }

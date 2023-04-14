@@ -45,5 +45,45 @@ export default {
         } catch (error) {
             console.log(error);
         }
+    },
+    async insertChiNhanh(dondk,macn,thanhpho,quan,huyen,giomo,giodong) {
+        const sql = `exec P_CHINHANH '${dondk}','${macn}','${thanhpho}','${quan}','${huyen}','${giomo}','${giodong}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async insertHopDong(mahd,madt,maddk,manv,mst) {
+        const sql = `exec P_HOPDONG '${mahd}','${madt}','${maddk}','${manv}','${mst}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async insertThucDon(madt,matd,mama,tenma,gia) {
+        const sql = `exec P_UPDATE_MONAN '${madt}','${matd}','${mama}','${tenma}','${gia}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
     }
+    ,async themMonAn(matd,mama,tenma,mieuta,gia) {
+        const sql = `exec P_MONAN '${matd}','${mama}',N'${tenma}',N'${mieuta}','${gia}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async CapNhatMonAn(tenma,mama,matd,gia) {
+        const sql = `exec P_UPDATE_MONAN N'${tenma}','${mama}','${matd}','${gia}'`
+        try {
+            await db.raw(sql)
+        } catch (error) {
+            console.log(error);
+        }
+    },
 }

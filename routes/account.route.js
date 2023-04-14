@@ -26,8 +26,12 @@ router.post('/signin', async (req,res)=>{
     if (username == "TX_01" && password == "123456") {
         permission = 3
 
-    }if (username == "NV_02" && password == "123456") {
+    }
+    if (username == "NV_02" && password == "123456") {
         permission = 1
+    }
+    if (username == "AD_01" && password == "123456") {
+        permission = 4
     }
 
 
@@ -58,6 +62,9 @@ router.post('/signin', async (req,res)=>{
     }
     else if (username == "TX_01" && password == "123456") {
         res.redirect("/taixe/home");
+    }
+    else if (username == "AD_01" && password == "123456") {
+        res.redirect("/admin/home");
     }
     else {
         res.redirect("/account/signin");
