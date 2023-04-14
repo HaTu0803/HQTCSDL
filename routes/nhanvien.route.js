@@ -36,7 +36,13 @@ router.get('/dsHopDongDaKy', async function (req, res) {
         list: list
     })
 })
-
+router.get('/dsNhanVien', async function (req, res) {
+    const list = await NhanvienService.findAllNhanVien()
+    res.render('vwNhanVien/dsNhanVien', {
+        layout: 'NhanVien/main1',
+        list: list
+    })
+})
 
 
 export default router

@@ -31,7 +31,7 @@ export default {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
 
 
     // async login(username,password) {
@@ -68,7 +68,14 @@ export default {
     //
     // }
 
-
-
+    async findAllNhanVien() {
+        const sql = `select * from NHANVIEN`
+        try {
+            const list = await db.raw(sql)
+            return list
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 }
