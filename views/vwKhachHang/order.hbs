@@ -149,7 +149,7 @@
 
                     <textarea id="mieutaInput"  ></textarea>
         <br>
-        <button id="updateButton">Mua</button>
+        <button id="AddButton">Mua</button>
         <br>
         <table>
             <thead>
@@ -423,25 +423,25 @@
         const selectedMatdda = matddaDropdown.value;
 
         // make an AJAX request to the server to get the corresponding Món ăn data
-        // const xhr = new XMLHttpRequest();
-        // xhr.open('GET', `/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`);
-        // xhr.onload = () => {
-        //     if (xhr.status === 200) {
-        //         // parse the response data and update the price and description input fields
-        //         const monanData = JSON.parse(xhr.responseText);
-        //         giaInput.value = monanData[0].GIA;
-        //         mieutaInput.value = monanData[0].MIEUTA;
-        //         tenMAInput.value = monanData[0].TENMA;
-        //
-        //     } else {
-        //         // handle errors
-        //         console.error('Error:', xhr.statusText);
-        //     }
-        // };
-        // xhr.onerror = () => {
-        //     console.error('Error:', xhr.statusText);
-        // };
-        // xhr.send();
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`);
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                // parse the response data and update the price and description input fields
+                const monanData = JSON.parse(xhr.responseText);
+                giaInput.value = monanData[0].GIA;
+                mieutaInput.value = monanData[0].MIEUTA;
+                // tenMAInput.value = monanData[0].TENMA;
+
+            } else {
+                // handle errors
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = () => {
+            console.error('Error:', xhr.statusText);
+        };
+        xhr.send();
 
         // const selectedValue = dropdown.value;
         if (selectedMama === "") {
@@ -500,5 +500,37 @@
 
     });
 
+
+</script>
+
+<script>
+    document.getElementById("AddButton").addEventListener("click", async function () {
+        try {
+            // const result = await insertThucDon(madt, matd, mama, tenma, gia);
+            var manvlement = document.getElementById("manvInput1");
+            var manv = manvlement.value;
+            var tennvlement = document.getElementById("tennvInput1");
+            var tennv = tennvlement.value;
+            // make an AJAX request to the server to get the corresponding Món ăn data
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/api/themdondathang?manv=${manv}&tennv=${tennv}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the price and description input fields
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        } catch (err) {
+            console.log(err);
+            // handle error
+        }
+        document.getElementById("myModal").style.display = "none";
+    });
 
 </script>
