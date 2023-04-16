@@ -255,5 +255,40 @@
         // Send an AJAX request to the server to fetch the new data
 
     });
+
+
+</script>
+<script>
+    // Get the "Add" button element
+    const addButton = document.querySelector(".add-btn");
+
+    // Attach a click event listener to the "Add" button
+    addButton.addEventListener("click", function() {
+        // Get the selected value from the dropdown
+        try {
+            const selectedValue = dropdown.value;
+            // const matx = res.locals.authUser.username;
+
+            // make an AJAX request to the server to get the corresponding Món ăn data
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/api/txnhandon?madh=${selectedValue}`);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // parse the response data and update the price and description input fields
+                } else {
+                    // handle errors
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+            xhr.onerror = () => {
+                console.error('Error:', xhr.statusText);
+            };
+            xhr.send();
+        } catch (err) {
+            console.log(err);
+            // handle error
+        }
+    });
+
 </script>
 </html>

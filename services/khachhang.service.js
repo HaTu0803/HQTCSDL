@@ -74,5 +74,14 @@ export default {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+    async Themmondonhang(makh,macn,matdda,matcda,mama,tenma,gia,sl) {
+        const sql = `exec P_THEM_CHITIET_DH_DA '${macn}','${makh}',null,'${matdda}','${mama}',N'${tenma}','${sl}','${gia}'`
+        try {
+            await db.raw(sql)
+            console.log(hello)
+        } catch (error) {
+            console.log(error);
+        }
+    },
 }

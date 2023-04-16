@@ -71,15 +71,16 @@ export default {
     //         console.log(error);
     //     }
     // },
-    async themDonDangKy(nguoidd,email,sdt,tennh,diachinh,stk,loaiamthuc,sldonhangmn) {
-        const sql = `exec P_DON_DK '${nguoidd}','${email}','${sdt}','${tennh}','${diachinh}',
-                                ${stk}','${loaiamthuc}','${sldonhangmn}'`
+    async themDonDangKy(nguoidd,email,sdt,tennh,diachinh,stk,tenquan,thanhpho,quan,diachi,loaiamthuc,sldonhangmn) {
+        const sql = `exec P_DON_DK N'${tennh}',N'${diachinh}','${stk}','${email}',N'${tenquan}',N'${thanhpho}',N'${quan}',N'${diachi}',${sldonhangmn},N'${loaiamthuc}','${sdt}',N'${nguoidd}'`
+        console.log(sql)
         try {
             await db.raw(sql)
         } catch (error) {
             console.log(error);
         }
     },
+
     async insertThucDon(madt,matd,mama,tenma,gia) {
         const sql = `exec P_UPDATE_MONAN '${madt}','${matd}','${mama}','${tenma}','${gia}'`
         try {

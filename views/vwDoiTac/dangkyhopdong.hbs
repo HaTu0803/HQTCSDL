@@ -159,6 +159,10 @@
 <!--                                <input type="text" class="form-control" id="floatingUsername"  placeholder="Mã đối tác">-->
 <!--                            </div>-->
                             <div class="form-floating mb-3">
+                                <label for="representative" id="content" class="font-weight-bold">Tên quán <span style="color: rgb(204, 0, 0);">*</span></label>
+                                <input type="text" class="form-control" id="branch_name_"  placeholder="Người đại diện">
+                            </div>
+                            <div class="form-floating mb-3">
                                 <label for="representative" id="content" class="font-weight-bold">Người đại diện <span style="color: rgb(204, 0, 0);">*</span></label>
                                 <input type="text" class="form-control" id="representative"  placeholder="Người đại diện">
                             </div>
@@ -193,22 +197,49 @@
                                 <input type="text" class="form-control" id="culinary-type"  placeholder="Loại ẩm thực ">
                             </div>
 
+
                             <div class="form-floating mb-3 ">
                                 <label for="app-num"   id="content" class="font-weight-bold">Số lượng đơn mỗi ngày <span style="color: rgb(204, 0, 0);">*</span></label>
 
                                 <input type="number" class="form-control" id="app-num"  placeholder="Số lượng đơn mỗi ngày" min="0">
                             </div>
-                            <div class="form-floating mb-3">
+
+                            <div class="form-floating mb-3 ">
                                 <label for="num_branches" id="content" class="font-weight-bold">Số lượng chi nhánh<span style="color: rgb(204, 0, 0);">*</span></label>
 
                                 <input type="number" class="form-control" id="num_branches" name="num_branches" placeholder="Số lượng chi nhánh" min="1">
-                                <button id ="submit-btn" class="font-weight-bold">Xác nhận</button>
-                                <!-- <button id ="submit-btn" >Xác nhận</button> -->
-                                <div id="branches-table"></div>
-
-                                <button id ="dk" onclick="showAddressTable(event)">Đăng kí địa chỉ</button>
-                                <div id="address-table"></div>
                             </div>
+
+                            <div class="form-floating mb-3 ">
+                                <label for="num_branches" id="content" class="font-weight-bold">Thành phố<span style="color: rgb(204, 0, 0);">*</span></label>
+
+                                <input type="text" class="form-control" id="city_" name="num_branches" placeholder="Số lượng chi nhánh" >
+                            </div>
+
+                            <div class="form-floating mb-3 ">
+                                <label for="num_branches" id="content" class="font-weight-bold">Quận<span style="color: rgb(204, 0, 0);">*</span></label>
+
+                                <input type="text" class="form-control" id="district_" name="num_branches" placeholder="Số lượng chi nhánh">
+                            </div>
+
+                            <div class="form-floating mb-3 ">
+                                <label for="num_branches" id="content" class="font-weight-bold">Địa chỉ<span style="color: rgb(204, 0, 0);">*</span></label>
+
+                                <input type="text" class="form-control" id="address_" name="num_branches" placeholder="Số lượng chi nhánh">
+                            </div>
+
+
+<!--                            <div class="form-floating mb-3">-->
+<!--                                <label for="num_branches" id="content" class="font-weight-bold">Số lượng chi nhánh<span style="color: rgb(204, 0, 0);">*</span></label>-->
+
+<!--                                <input type="number" class="form-control" id="num_branches" name="num_branches" placeholder="Số lượng chi nhánh" min="1">-->
+<!--                                <button id ="submit-btn" class="font-weight-bold">Xác nhận</button>-->
+<!--                                &lt;!&ndash; <button id ="submit-btn" >Xác nhận</button> &ndash;&gt;-->
+<!--                                <div id="branches-table"></div>-->
+
+<!--                                <button id ="dk" onclick="showAddressTable(event)">Đăng kí địa chỉ</button>-->
+<!--                                <div id="address-table"></div>-->
+<!--                            </div>-->
                             <div class="form-floating mb-6 " >
                                 <button id ="AddButton" class="btn btn-primary btn-login fw-bold w-100 font-weight-bold" type="submit">
                                     Đăng ký</button>
@@ -326,46 +357,39 @@
 </script>
 
 <script>
-    document.getElementById("AddButton").addEventListener("click", async function () {
+    document.getElementById("AddButton").addEventListener("click", async function (event) {
+        event.preventDefault()
         try {
-            // const result = await insertThucDon(madt, matd, mama, tenma, gia);
-            // const selecteMadt = madtDropdown.value;
-            // const selectedMatdda = matddaDropdown.value;
+            const nguoiddelement = document.getElementById("representative");
+            const emailelement = document.getElementById("email");
+            const sdtelement = document.getElementById("phone");
+            const tennhelement = document.getElementById("bank");
+            const diachinhelement = document.getElementById("addressbank");
+            const stkelement = document.getElementById("account-number");
+            const loaiamthucelement = document.getElementById("culinary-type");
+            const sldonhangmnelement = document.getElementById("app-num");
+            const branch_name_ = document.getElementById("branch_name_");
+            const address_ = document.getElementById("address_");
+            const city_ = document.getElementById("city_");
+            const district_ = document.getElementById("district_");
 
-            var nguoiddelement = document.getElementById("representative");
-            var nguoidd = nguoiddelement.value;
-            var emailelement = document.getElementById("email");
-            var email = emailelement.value;
-            var sdtelement = document.getElementById("phone");
-            var sdt= sdtelement.value;
-            var tennhelement = document.getElementById("bank");
-            var tennh = tennhelement.value;
-            var diachinhelement = document.getElementById("addressbank");
-            var diachinh = diachinhelement.value;
-            var stkelement = document.getElementById("account-number");
-            var stk = stkelement.value;
-            var loaiamthucelement = document.getElementById("culinary-type");
-            var loaiamthuc = loaiamthucelement.value;
-            var sldonhangmnelement = document.getElementById("app-num");
-            var sldonhangmn = sldonhangmnelement.value;
-            // var slchinhanhelement = document.getElementById("num_branches");
-            // var slchinhanh = slchinhanhelement.value;
-            // var nguoiddelement = document.getElementById("representative");
-            // var nguoidd = nguoiddelement.value;
-            // var nguoiddelement = document.getElementById("representative");
-            // var nguoidd = nguoiddelement.value;
-            // var nguoiddelement = document.getElementById("representative");
-            // var nguoidd = nguoiddelement.value;
-            // var nguoiddelement = document.getElementById("representative");
-            // var nguoidd = nguoiddelement.value;
-            // var nguoiddelement = document.getElementById("representative");
-            // var nguoidd = nguoiddelement.value;
+            const nguoidd = nguoiddelement.value;
+            const email = emailelement.value;
+            const sdt = sdtelement.value;
+            const tennh = tennhelement.value;
+            const diachinh = diachinhelement.value;
+            const stk = stkelement.value;
+            const loaiamthuc = loaiamthucelement.value;
+            const sldonhangmn = sldonhangmnelement.value;
+            const quan = district_.value;
+            const tenquan = branch_name_.value;
+            const diachi = address_.value;
+            const thanhpho = city_.value;
 
-
-            // make an AJAX request to the server to get the corresponding Món ăn data
             const xhr = new XMLHttpRequest();
             xhr.open('GET', `/api/themdondk?nguoidd=${nguoidd}&email=${email}&sdt=${sdt}
-                                                        &tennh=${tennh}&diachinh=${diachinh}&stk=${stk}&loaiamthuc=${loaiamthuc}&sldonhangmn=${sldonhangmn}`);
+                                                        &tennh=${tennh}&diachinh=${diachinh}&stk=${stk}&quan=${quan}
+                                                        &tenquan=${tenquan}&diachi=${diachi}&thanhpho=${thanhpho}&loaiamthuc=${loaiamthuc}&sldonhangmn=${sldonhangmn}`);
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     // parse the response data and update the price and description input fields
@@ -380,9 +404,28 @@
                 console.error('Error:', xhr.statusText);
             };
             xhr.send();
+
+
+            //     fetch(`/api/themdondk?nguoidd=${nguoidd}&email=${email}&sdt=${sdt}
+            //                                                 &tennh=${tennh}&diachinh=${diachinh}&stk=${stk}&quan=${quan}
+            //                                                 &tencn=${tencn}&diachi=${diachi}&thanhpho=${thanhpho}&loaiamthuc=${loaiamthuc}&sldonhangmn=${sldonhangmn}`)
+            //             .then(response => response.json())
+            //             .then(data => {
+            //             })
+            //             .catch(error => {
+            //                 console.error(error);
+            //             });
+            // } catch (err) {
+            //     console.log(err);
+            //     // handle error
+            // }
+
         } catch (err) {
             console.log(err);
             // handle error
         }
+
+    });
+
 </script>
 </html>

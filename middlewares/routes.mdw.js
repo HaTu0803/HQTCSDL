@@ -82,6 +82,32 @@ export default function (app) {
     // console.log(list)
     res.send(list);
   });
+
+  app.get('/api/themdondk', async function (req, res) {
+    const nguoidd = req.query.nguoidd;
+    const email = req.query.email;
+    const sdt = req.query.sdt;
+
+    const tennh = req.query.tennh;
+    const diachinh = req.query.diachinh;
+
+    const stk = req.query.stk;
+    const tenquan = req.query.tenquan;
+
+    const thanhpho = req.query.thanhpho;
+    const quan = req.query.quan;
+
+    const diachi = req.query.diachi;
+    const loaiamthuc = req.query.loaiamthuc;
+    const sldonhangmn = req.query.sldonhangmn;
+
+    const list = []
+    await DoitacService.themDonDangKy(nguoidd,email,sdt,tennh,diachinh,stk,
+        tenquan,thanhpho,quan,diachi,loaiamthuc,sldonhangmn);
+    res.send(list);
+    // res.status(200).send({ message: 'Don dang ky da duoc them thanh cong.' });
+
+  });
   // NHÂN VIÊN ---------------------------------------------------------
 
   app.get('/api/ddky', async function (req, res) {
@@ -114,17 +140,26 @@ export default function (app) {
     const list = await TaixeService.findAllDonHangTheoMa(madh);
     res.send(list);
   });
+  // app.get('/api/alldh', async function (req, res) {
+  //   const {madh} = req.query;
+  //   const list = await TaixeService.findAllDonHang();
+  //   res.send(list);
+  // });
   app.get('/api/alldh', async function (req, res) {
     const {madh} = req.query;
     const list = await TaixeService.findAllDonHang();
     res.send(list);
   });
-  app.get('/api/alldh', async function (req, res) {
-    const {madh} = req.query;
-    const list = await TaixeService.findAllDonHang();
-    res.send(list);
-  });
+  app.get('/api/txnhandon', async function (req, res) {
+    // const matx = req.query.matx;
 
+    const madh = req.query.madh;
+    const matx = res.locals.authUser.username
+console.log(madh)
+    const list = await TaixeService.Taxixenhandon(matx,madh);
+    res.send(list);
+
+  });
   // KHÁCH HÀNG ---------------------------------------------------------
 
   app.get('/api/tinhtrang', async function (req, res) {
@@ -142,7 +177,22 @@ export default function (app) {
     res.send(list1);
   });
 
+  app.get('/api/themmonhang', async function (req, res) {
+    const macn = req.query.macn;
+    const matdda = req.query.matdda;
+    const mama = req.query.mama;
+    const tenma = req.query.tenma;
+    const matcda = req.query.matcda;
 
+    const sl = req.query.sl;
+    const gia = req.query.gia;
+    // const mieuta = req.query.mieuta
+    const makh = res.locals.authUser.username
+    const list = []
+    await KhachhangService.Themmondonhang(makh,macn,matdda,matcda,mama,tenma,gia,sl);
+    console.log(list)
+    res.send(list);
+  });
   // ADMIN ---------------------------------------------------------
 
   app.get('/api/themnhanvien', async function (req, res) {

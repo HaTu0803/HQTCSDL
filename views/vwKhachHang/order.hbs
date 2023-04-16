@@ -130,37 +130,42 @@
             {{/each}}
         </select>
         <br>
-        <label for="mamaDropdown">Tên Món Ăn:</label>
+        <label for="mamaDropdown">Mã món ăn:</label>
         <select id="mamaDropdown">
             <option value=""></option>
             {{#each this.list2}}
-                <option value="{{MAMA}}">{{TENMA}}</option>
+                <option value="{{MAMA}}">{{MAMA}}</option>
             {{/each}}
         </select>
+        <br>
+        <label for="tenMAInput">Tên món ăn:</label >
+        <input type="text" id="tenMAInput" readonly>
+        <br>
         <br>
         <label for="giaInput">Giá:</label >
         <input type="number" id="giaInput" readonly>
         <br>
 
         <label for="SoluongInput">Số Lượng:</label>
-        <input type="number" id="SoluongInput">
+        <input type="number" id="SoluongInput" min = 1>
         <br>
                     <label for="mieutaInput">Miêu tả:</label>
 
                     <textarea id="mieutaInput"  ></textarea>
         <br>
-        <button id="AddButton">Mua</button>
+        <button id="AddButton">Add</button>
         <br>
         <table>
             <thead>
             <tr>
-                <th>Mã đơn hàng</th>
+<!--                <th>Mã đơn hàng</th>-->
+                <th>Mã khách hàng </th>
+                <th>Mã chi nhánh</th>
                 <th>Mã thực đơn</th>
                 <th>Mã món ăn</th>
                 <th>Tên món ăn</th>
                 <th>Số lượng</th>
                 <th>Giá</th>
-                <th>Miêu tả</th>
                 <!--                    <th>Số lượng món</th>-->
                 <!--                    <th></th>-->
                 <!--                    <th></th>-->
@@ -174,7 +179,10 @@
             <tbody>
             {{#each this.list2}}
                 <tr>
-                    <td>{{MADH}}</td>
+<!--                    <td>{{MADH}}</td>-->
+                    <td>{{MAKH}}</td>
+                    <td>{{MACN}}</td>
+
                     <td>{{MATD_DA}}</td>
                     <td>{{MAMA}}</td>
                     <td>{{TENMA}}</td>
@@ -226,48 +234,6 @@
     // const tenDTInput = document.getElementById('tenDTInput');
     const tableBody = document.querySelector("tbody");
 
-    // macnDropdown.addEventListener('change', async () => {
-    //     const selectedMacn = macnDropdown.value;
-    //
-    //     // make an AJAX request to the server to get the corresponding Mã Thực đơn data
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.open('GET', `/api/madt?macn=${selectedMacn}`);
-    //     xhr.onload = () => {
-    //         if (xhr.status === 200) {
-    //             // parse the response data and update the Mã Thực đơn dropdown options
-    //             const madtData = JSON.parse(xhr.responseText);
-    //             madtDropdown.innerHTML = '';
-    //             madtDropdown.appendChild(document.createElement('option'));
-    //             madtData.forEach((item) => {
-    //                 const option = document.createElement('option');
-    //                 option.value = item.MADT;
-    //                 option.textContent = item.MADT;
-    //                 madtDropdown.appendChild(option);
-    //             });
-    //
-    //
-    //
-    //         } else {
-    //             // handle errors
-    //             console.error('Error:', xhr.statusText);
-    //         }
-    //     };
-    //     xhr.onerror = () => {
-    //         console.error('Error:', xhr.statusText);
-    //     };
-    //     xhr.send();
-    //     // try {
-    //     //     const response = await fetch(`/api/matdda?madt=${selectedMadt}`);
-    //     //     const matddaData = await response.json();
-    //     //     // update the price and description input fields
-    //     //
-    //     //     tenTDInput.value = matddaData[0].TENTDDA;
-    //     // } catch (error) {
-    //     //     // handle errors
-    //     //     console.error('Error:', error);
-    //     // }
-    // });
-    // listen to the change event on the Mã đối tác dropdown
     madtDropdown.addEventListener('change', async () => {
         // get the selected Mã đối tác value
         const selectedMadt = madtDropdown.value;
@@ -342,23 +308,23 @@
                     mamaData.forEach((item) => {
                         const option = document.createElement('option');
                         option.value = item.MAMA;
-                        option.textContent = item.TENMA;
+                        option.textContent = item.MAMA;
                         mamaDropdown.appendChild(option);
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
-                      <td>${item.MADH}</td>
-
-                      <td>${item.MATD_DA}</td>
-                      <td>${item.MAMA}</td>
-                        <td>${item.TENMA}</td>
-                        <td>${item.SL}</td>
-                    <td>${item.GIA}</td>
-                    <td>${item.MIEUTA}</td>
-                    `;
-                        tableBody.appendChild(tr);
+                    //     const tr = document.createElement("tr");
+                    //     tr.innerHTML = `
+                    //   // <td>${item.MADH}</td>
+                    //
+                    //   <td>${item.MATD_DA}</td>
+                    //   <td>${item.MAMA}</td>
+                    //     <td>${item.TENMA}</td>
+                    //     <td>${item.SL}</td>
+                    // <td>${item.GIA}</td>
+                    // <td>${item.MIEUTA}</td>
+                    // `;
+                    //     tableBody.appendChild(tr);
                     });
                     // tenTDInput.value = mamaData[0].TENTDDA;
-
+                    //
                     // tenMAInput.value = mamaData[0].TENMA;
 
                 } else {
@@ -384,20 +350,20 @@
                     mamaData.forEach((item) => {
                         const option = document.createElement('option');
                         option.value = item.MAMA;
-                        option.textContent = item.TENMA;
+                        option.textContent = item.MAMA;
                         mamaDropdown.appendChild(option);
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
-                     <td>${item.MADH}</td>
-
-                      <td>${item.MATD_DA}</td>
-                      <td>${item.MAMA}</td>
-                        <td>${item.TENMA}</td>
-                        <td>${item.SL}</td>
-                    <td>${item.GIA}</td>
-                    <td>${item.MIEUTA}</td>
-                    `;
-                        tableBody.appendChild(tr);
+                    //     const tr = document.createElement("tr");
+                    //     tr.innerHTML = `
+                    //  // <td>${item.MADH}</td>
+                    //
+                    //   <td>${item.MATD_DA}</td>
+                    //   <td>${item.MAMA}</td>
+                    //     <td>${item.TENMA}</td>
+                    //     <td>${item.SL}</td>
+                    // <td>${item.GIA}</td>
+                    // <td>${item.MIEUTA}</td>
+                    // `;
+                    //     tableBody.appendChild(tr);
                     });
                     // tenTDInput.value = mamaData[0].TENTDDA;
 
@@ -429,9 +395,8 @@
             if (xhr.status === 200) {
                 // parse the response data and update the price and description input fields
                 const monanData = JSON.parse(xhr.responseText);
+                tenMAInput.value = monanData[0].TENMA;
                 giaInput.value = monanData[0].GIA;
-                mieutaInput.value = monanData[0].MIEUTA;
-                // tenMAInput.value = monanData[0].TENMA;
 
             } else {
                 // handle errors
@@ -444,59 +409,59 @@
         xhr.send();
 
         // const selectedValue = dropdown.value;
-        if (selectedMama === "") {
-            fetch(`/api/allmonan`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear the existing rows in the table body
-                        tableBody.innerHTML = "";
-
-                        // Loop through the new data and append rows to the table body
-                        data.forEach(row => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
-                      <td>${item.MADH}</td>
-
-                      <td>${item.MATD_DA}</td>
-                      <td>${item.MAMA}</td>
-                        <td>${item.TENMA}</td>
-                        <td>${item.SL}</td>
-                    <td>${item.GIA}</td>
-                    <td>${item.MIEUTA}</td>
-                    `;
-                            tableBody.appendChild(tr);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-        } else {
-            fetch(`/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear the existing rows in the table body
-                        tableBody.innerHTML = "";
-
-                        // Loop through the new data and append rows to the table body
-                        data.forEach(item => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
-                       <td>${item.MADH}</td>
-                      <td>${item.MATD_DA}</td>
-                      <td>${item.MAMA}</td>
-                        <td>${item.TENMA}</td>
-                        <td>${item.SL}</td>
-                    <td>${item.GIA}</td>
-                    <td>${item.MIEUTA}</td>
-                    `;
-                            tableBody.appendChild(tr);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-        }
-        // Send an AJAX request to the server to fetch the new data
+        // if (selectedMama === "") {
+        //     fetch(`/api/allmonan`)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 // Clear the existing rows in the table body
+        //                 tableBody.innerHTML = "";
+        //
+        //                 // Loop through the new data and append rows to the table body
+        //                 data.forEach(row => {
+        //                     const tr = document.createElement("tr");
+        //                     tr.innerHTML = `
+        //               <td>${item.MADH}</td>
+        //
+        //               <td>${item.MATD_DA}</td>
+        //               <td>${item.MAMA}</td>
+        //                 <td>${item.TENMA}</td>
+        //                 <td>${item.SL}</td>
+        //             <td>${item.GIA}</td>
+        //             <td>${item.MIEUTA}</td>
+        //             `;
+        //                     tableBody.appendChild(tr);
+        //                 });
+        //             })
+        //             .catch(error => {
+        //                 console.error(error);
+        //             });
+        // } else {
+        //     fetch(`/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 // Clear the existing rows in the table body
+        //                 tableBody.innerHTML = "";
+        //
+        //                 // Loop through the new data and append rows to the table body
+        //                 data.forEach(item => {
+        //                     const tr = document.createElement("tr");
+        //                     tr.innerHTML = `
+        //                <td>${item.MADH}</td>
+        //               <td>${item.MATD_DA}</td>
+        //               <td>${item.MAMA}</td>
+        //                 <td>${item.TENMA}</td>
+        //                 <td>${item.SL}</td>
+        //             <td>${item.GIA}</td>
+        //             <td>${item.MIEUTA}</td>
+        //             `;
+        //                     tableBody.appendChild(tr);
+        //                 });
+        //             })
+        //             .catch(error => {
+        //                 console.error(error);
+        //             });
+        // }
+        // // Send an AJAX request to the server to fetch the new data
 
     });
 
@@ -507,13 +472,20 @@
     document.getElementById("AddButton").addEventListener("click", async function () {
         try {
             // const result = await insertThucDon(madt, matd, mama, tenma, gia);
-            var manvlement = document.getElementById("manvInput1");
-            var manv = manvlement.value;
-            var tennvlement = document.getElementById("tennvInput1");
-            var tennv = tennvlement.value;
+            var madt = document.getElementById("madtDropdown").value;
+            var macn = document.getElementById("macnDropdown").value;
+            var matdda = document.getElementById("matddaDropdown").value;
+            var mama = document.getElementById("mamaDropdown").value;
+            // var tenma = document.getElementById("tenMAInput").value;
+
+            var tempgia = document.getElementById("giaInput").value;
+            var gia = parseInt(tempgia);
+            var sl = document.getElementById("SoluongInput").value;
+            // var mieuta = document.getElementById("mieutaInput").value;
+
             // make an AJAX request to the server to get the corresponding Món ăn data
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/api/themdondathang?manv=${manv}&tennv=${tennv}`);
+            xhr.open('GET', `/api/themmonhang?macn=${macn}&matdda=${matdda}&mama=${mama}&tenma=${tenma}&gia=${gia}&sl=${sl}`);
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     // parse the response data and update the price and description input fields
@@ -530,7 +502,6 @@
             console.log(err);
             // handle error
         }
-        document.getElementById("myModal").style.display = "none";
     });
 
 </script>

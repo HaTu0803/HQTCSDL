@@ -41,11 +41,10 @@ router.get('/home', function (req, res) {
 })
 
 router.get('/dsNhanVien', async function (req, res) {
-    // const list = await AdminService.findAllNhanVien()
-    console.log(list)
+    const list = await AdminService.findAllNhanVien()
     res.render('vwAdmin/dsNhanVien', {
         list: list,
-        empty: list.length === 0,
+        // empty: list.length === 0,
         layout: 'Admin/main1'
     })
 })

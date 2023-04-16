@@ -18,6 +18,14 @@ export default {
             console.log(error);
         }
     },
+    // async CapNhatNhanVien(tenma,mama,matd,gia) {
+    //     const sql = `exec P_UPDATE_MONAN N'${tenma}','${mama}','${matd}','${gia}'`
+    //     try {
+    //         await db.raw(sql)
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // },
 
 }
 
