@@ -23,4 +23,14 @@ router.get('/DonHang', async function (req, res) {
     })
 
 })
+
+router.get('/DonHangNhan', async function (req, res) {
+    const list = await TaixeService.findAllDonHang()
+
+    res.render('vwTaiXe/DonHangNhan', {
+        layout: 'TaiXe/main1',
+        list:list
+    })
+
+})
 export default router
