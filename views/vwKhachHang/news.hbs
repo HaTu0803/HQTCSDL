@@ -135,19 +135,23 @@
             {{/each}}
         </select>
         <br>
-<!--        <label for="SoluongInput">Số Lượng:</label>-->
-<!--        <input type="number" id="SoluongInput">-->
+        <!--        <label for="SoluongInput">Số Lượng:</label>-->
+        <!--        <input type="number" id="SoluongInput">-->
         <br>
         <button id="updateButton">Mua</button>
         <br>
         <table>
             <thead>
             <tr>
+                <th>Mã chi nhánh</th>
+
                 <th>Mã thực đơn</th>
                 <th>Mã món ăn</th>
                 <th>Tên món ăn</th>
                 <th>Giá</th>
                 <th>Miêu tả</th>
+                <th>Số lượng</th>
+
                 <!--                    <th>Số lượng món</th>-->
                 <!--                    <th></th>-->
                 <!--                    <th></th>-->
@@ -161,11 +165,14 @@
             <tbody>
             {{#each this.list2}}
                 <tr>
+                    <td>{{MACN}}</td>
+
                     <td>{{MATD_DA}}</td>
                     <td>{{MAMA}}</td>
                     <td>{{TENMA}}</td>
                     <td>{{GIA}}</td>
                     <td>{{MIEUTA}}</td>
+                    <td>{{SOLUONG}}</td>
 
                 </tr>
             {{/each}}
@@ -309,86 +316,333 @@
         xhr1.send();
 
     });
-    matddaDropdown.addEventListener('change', async () => {
-        // get the selected Mã đối tác value
+    macnDropdown.addEventListener('change', async () => {
+        let selectedMacn = macnDropdown.value;
+        selectedMacn = selectedMacn.replace(/\s+/g, '');
         const selectedMatdda = matddaDropdown.value;
-        if (selectedMatdda !== "") {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/api/mama?matdda=${selectedMatdda}`);
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    // parse the response data and update the Mã Thực đơn dropdown options
-                    const mamaData = JSON.parse(xhr.responseText);
-                    mamaDropdown.innerHTML = '';
-                    mamaDropdown.appendChild(document.createElement('option'));
-                    tableBody.innerHTML = "";
-                    mamaData.forEach((item) => {
-                        const option = document.createElement('option');
-                        option.value = item.MAMA;
-                        option.textContent = item.TENMA;
-                        mamaDropdown.appendChild(option);
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
+        if (selectedMacn !== "") {
+            if (selectedMatdda !== "") {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/mamamacnmatd?macn=${selectedMacn}&matdda=${selectedMatdda}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
                     `;
-                        tableBody.appendChild(tr);
-                    });
-                    // tenTDInput.value = mamaData[0].TENTDDA;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
 
-                    // tenMAInput.value = mamaData[0].TENMA;
+                        // tenMAInput.value = mamaData[0].TENMA;
 
-                } else {
-                    // handle errors
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
                     console.error('Error:', xhr.statusText);
-                }
-            };
-            xhr.onerror = () => {
-                console.error('Error:', xhr.statusText);
-            };
-            xhr.send();
+                };
+                xhr.send();
+            }
+            else {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/mamamacn?macn=${selectedMacn}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
         }
         else {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `/api/allmama`);
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    // parse the response data and update the Mã Thực đơn dropdown options
-                    const mamaData = JSON.parse(xhr.responseText);
-                    mamaDropdown.innerHTML = '';
-                    mamaDropdown.appendChild(document.createElement('option'));
-                    tableBody.innerHTML = "";
-                    mamaData.forEach((item) => {
-                        const option = document.createElement('option');
-                        option.value = item.MAMA;
-                        option.textContent = item.TENMA;
-                        mamaDropdown.appendChild(option);
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
+            if (selectedMatdda !== "") {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/mamamatd?matdda=${selectedMatdda}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
                     `;
-                        tableBody.appendChild(tr);
-                    });
-                    // tenTDInput.value = mamaData[0].TENTDDA;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
 
-                    // tenMAInput.value = mamaData[0].TENMA;
+                        // tenMAInput.value = mamaData[0].TENMA;
 
-                } else {
-                    // handle errors
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
                     console.error('Error:', xhr.statusText);
-                }
-            };
-            xhr.onerror = () => {
-                console.error('Error:', xhr.statusText);
-            };
-            xhr.send();
+                };
+                xhr.send();
+            }
+            else {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/allmama`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
+        }
+    });
+    matddaDropdown.addEventListener('change', async () => {
+        // get the selected Mã đối tác value
+        let selectedMacn = macnDropdown.value;
+        selectedMacn = selectedMacn.replace(/\s+/g, '');
+        const selectedMatdda = matddaDropdown.value;
+        if (selectedMatdda !== "") {
+            if (selectedMacn !== "") {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/mamamacnmatd?macn=${selectedMacn}&matdda=${selectedMatdda}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        mamaDropdown.innerHTML = '';
+                        mamaDropdown.appendChild(document.createElement('option'));
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const option = document.createElement('option');
+                            option.value = item.MAMA;
+                            option.textContent = item.TENMA;
+                            mamaDropdown.appendChild(option);
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
+            else {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `/api/mama?matdda=${selectedMatdda}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        mamaDropdown.innerHTML = '';
+                        mamaDropdown.appendChild(document.createElement('option'));
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const option = document.createElement('option');
+                            option.value = item.MAMA;
+                            option.textContent = item.TENMA;
+                            mamaDropdown.appendChild(option);
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
+        }
+        else {
+            if (selectedMacn !== "") {
+                const xhr = new XMLHttpRequest();
+                console.log(selectedMatdda)
+                xhr.open('GET', `/api/mamamacn?macn=${selectedMacn}`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        mamaDropdown.innerHTML = '';
+                        mamaDropdown.appendChild(document.createElement('option'));
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const option = document.createElement('option');
+                            option.value = item.MAMA;
+                            option.textContent = item.TENMA;
+                            mamaDropdown.appendChild(option);
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
+            else {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `/api/allmama`);
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        // parse the response data and update the Mã Thực đơn dropdown options
+                        const mamaData = JSON.parse(xhr.responseText);
+                        mamaDropdown.innerHTML = '';
+                        mamaDropdown.appendChild(document.createElement('option'));
+                        tableBody.innerHTML = "";
+                        mamaData.forEach((item) => {
+                            const option = document.createElement('option');
+                            option.value = item.MAMA;
+                            option.textContent = item.TENMA;
+                            mamaDropdown.appendChild(option);
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `
+                     <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                            tableBody.appendChild(tr);
+                        });
+                        // tenTDInput.value = mamaData[0].TENTDDA;
+
+                        // tenMAInput.value = mamaData[0].TENMA;
+
+                    } else {
+                        // handle errors
+                        console.error('Error:', xhr.statusText);
+                    }
+                };
+                xhr.onerror = () => {
+                    console.error('Error:', xhr.statusText);
+                };
+                xhr.send();
+            }
         }
         // make an AJAX request to the server to get the corresponding Mã Thực đơn data
 
@@ -398,7 +652,8 @@
         // get the selected Mã món ăn value
         const selectedMama = mamaDropdown.value;
         const selectedMatdda = matddaDropdown.value;
-
+        let selectedMacn = macnDropdown.value;
+        selectedMacn = selectedMacn.replace(/\s+/g, '');
         // make an AJAX request to the server to get the corresponding Món ăn data
         // const xhr = new XMLHttpRequest();
         // xhr.open('GET', `/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`);
@@ -422,51 +677,277 @@
 
         // const selectedValue = dropdown.value;
         if (selectedMama === "") {
-            fetch(`/api/allmonan`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear the existing rows in the table body
-                        tableBody.innerHTML = "";
-
-                        // Loop through the new data and append rows to the table body
-                        data.forEach(row => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
+            if (selectedMatdda !== "") {
+                if (selectedMacn !== "") {
+                    const xhr = new XMLHttpRequest();
+                    console.log(selectedMatdda)
+                    xhr.open('GET', `/api/mamamacnmatd?macn=${selectedMacn}&matdda=${selectedMatdda}`);
+                    xhr.onload = () => {
+                        if (xhr.status === 200) {
+                            // parse the response data and update the Mã Thực đơn dropdown options
+                            const mamaData = JSON.parse(xhr.responseText);
+                            tableBody.innerHTML = "";
+                            mamaData.forEach((item) => {
+                                const tr = document.createElement("tr");
+                                tr.innerHTML = `
+                    <td>${item.MACN}</td>
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
                     `;
-                            tableBody.appendChild(tr);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                                tableBody.appendChild(tr);
+                            });
+                            // tenTDInput.value = mamaData[0].TENTDDA;
+
+                            // tenMAInput.value = mamaData[0].TENMA;
+
+                        } else {
+                            // handle errors
+                            console.error('Error:', xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = () => {
+                        console.error('Error:', xhr.statusText);
+                    };
+                    xhr.send();
+                }
+                else {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `/api/mama?matdda=${selectedMatdda}`);
+                    xhr.onload = () => {
+                        if (xhr.status === 200) {
+                            // parse the response data and update the Mã Thực đơn dropdown options
+                            const mamaData = JSON.parse(xhr.responseText);
+                            mamaDropdown.innerHTML = '';
+                            mamaDropdown.appendChild(document.createElement('option'));
+                            tableBody.innerHTML = "";
+                            mamaData.forEach((item) => {
+                                const option = document.createElement('option');
+                                option.value = item.MAMA;
+                                option.textContent = item.TENMA;
+                                mamaDropdown.appendChild(option);
+                                const tr = document.createElement("tr");
+                                tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                tableBody.appendChild(tr);
+                            });
+                            // tenTDInput.value = mamaData[0].TENTDDA;
+
+                            // tenMAInput.value = mamaData[0].TENMA;
+
+                        } else {
+                            // handle errors
+                            console.error('Error:', xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = () => {
+                        console.error('Error:', xhr.statusText);
+                    };
+                    xhr.send();
+                }
+            }
+            else {
+                if (selectedMacn !== "") {
+                    const xhr = new XMLHttpRequest();
+                    console.log(selectedMatdda)
+                    xhr.open('GET', `/api/mamamacn?macn=${selectedMacn}`);
+                    xhr.onload = () => {
+                        if (xhr.status === 200) {
+                            // parse the response data and update the Mã Thực đơn dropdown options
+                            const mamaData = JSON.parse(xhr.responseText);
+                            tableBody.innerHTML = "";
+                            mamaData.forEach((item) => {
+                                const tr = document.createElement("tr");
+                                tr.innerHTML = `
+                    <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                tableBody.appendChild(tr);
+                            });
+                            // tenTDInput.value = mamaData[0].TENTDDA;
+
+                            // tenMAInput.value = mamaData[0].TENMA;
+
+                        } else {
+                            // handle errors
+                            console.error('Error:', xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = () => {
+                        console.error('Error:', xhr.statusText);
+                    };
+                    xhr.send();
+                }
+                else {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `/api/allmama`);
+                    xhr.onload = () => {
+                        if (xhr.status === 200) {
+                            // parse the response data and update the Mã Thực đơn dropdown options
+                            const mamaData = JSON.parse(xhr.responseText);
+                            mamaDropdown.innerHTML = '';
+                            mamaDropdown.appendChild(document.createElement('option'));
+                            tableBody.innerHTML = "";
+                            mamaData.forEach((item) => {
+                                const option = document.createElement('option');
+                                option.value = item.MAMA;
+                                option.textContent = item.TENMA;
+                                mamaDropdown.appendChild(option);
+                                const tr = document.createElement("tr");
+                                tr.innerHTML = `
+                     <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                tableBody.appendChild(tr);
+                            });
+                            // tenTDInput.value = mamaData[0].TENTDDA;
+
+                            // tenMAInput.value = mamaData[0].TENMA;
+
+                        } else {
+                            // handle errors
+                            console.error('Error:', xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = () => {
+                        console.error('Error:', xhr.statusText);
+                    };
+                    xhr.send();
+                }
+            }
         } else {
-            fetch(`/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear the existing rows in the table body
-                        tableBody.innerHTML = "";
+            if (selectedMacn !== "") {
+                if (selectedMatdda !== "") {
+                    fetch(`/api/monanmamamatdmacn?mama=${selectedMama}&matd=${selectedMatdda}&macn=${selectedMacn}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Clear the existing rows in the table body
+                                tableBody.innerHTML = "";
 
-                        // Loop through the new data and append rows to the table body
-                        data.forEach(item => {
-                            const tr = document.createElement("tr");
-                            tr.innerHTML = `
+                                // Loop through the new data and append rows to the table body
+                                data.forEach(item => {
+                                    const tr = document.createElement("tr");
+                                    tr.innerHTML = `
+                      <td>${item.MACN}</td>
                       <td>${item.MATD_DA}</td>
                       <td>${item.MAMA}</td>
                         <td>${item.TENMA}</td>
                     <td>${item.GIA}</td>
                     <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
                     `;
-                            tableBody.appendChild(tr);
-                        });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                                    tableBody.appendChild(tr);
+                                });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                }
+                else {
+                    fetch(`/api/monanmamamacn?mama=${selectedMama}&macn=${selectedMacn}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Clear the existing rows in the table body
+                                tableBody.innerHTML = "";
+
+                                // Loop through the new data and append rows to the table body
+                                data.forEach(item => {
+                                    const tr = document.createElement("tr");
+                                    tr.innerHTML = `
+                      <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                    tableBody.appendChild(tr);
+                                });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                }
+
+            }
+            else {
+                if (selectedMatdda !== "") {
+                    fetch(`/api/monan?mama=${selectedMama}&matd=${selectedMatdda}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Clear the existing rows in the table body
+                                tableBody.innerHTML = "";
+
+                                // Loop through the new data and append rows to the table body
+                                data.forEach(item => {
+                                    const tr = document.createElement("tr");
+                                    tr.innerHTML = `
+                      <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                    tableBody.appendChild(tr);
+                                });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                }
+                else {
+                    var selectedOption = mamaDropdown.selectedOptions[0];
+                    var tenma = selectedOption.textContent;
+                    fetch(`/api/monantenma?tenma=${tenma}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Clear the existing rows in the table body
+                                tableBody.innerHTML = "";
+
+                                // Loop through the new data and append rows to the table body
+                                data.forEach(item => {
+                                    const tr = document.createElement("tr");
+                                    tr.innerHTML = `
+                      <td>${item.MACN}</td>
+                      <td>${item.MATD_DA}</td>
+                      <td>${item.MAMA}</td>
+                        <td>${item.TENMA}</td>
+                    <td>${item.GIA}</td>
+                    <td>${item.MIEUTA}</td>
+                    <td>${item.SOLUONG}</td>
+                    `;
+                                    tableBody.appendChild(tr);
+                                });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                }
+            }
+
         }
         // Send an AJAX request to the server to fetch the new data
 

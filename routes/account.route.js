@@ -17,6 +17,9 @@ router.post('/signin', async (req,res)=>{
     if (username == "KH_01" && password == "123456") {
         permission = 0
     }
+    if (username == "KH_02" && password == "123456") {
+        permission = 0
+    }
     if (username == "NV_01" && password == "123456") {
         permission = 1
     }
@@ -49,6 +52,9 @@ router.post('/signin', async (req,res)=>{
 
 
     if (username == "KH_01" && password == "123456") {
+        res.redirect("/khachhang/home");
+    }
+    else if (username == "KH_02" && password == "123456") {
         res.redirect("/khachhang/home");
     }
     else if (username == "NV_01" && password == "123456") {

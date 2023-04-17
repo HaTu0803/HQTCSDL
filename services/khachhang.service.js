@@ -38,7 +38,70 @@ export default {
         }
     },
     async findAllMonAn() {
-        const sql = `select * from MONAN`
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoCNTD(macn,matd) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE TT_MA_CN.MACN='${macn}' and TT_MA_CN.MATD_DA='${matd}'`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoCNTDMA(macn,matd,mama) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE TT_MA_CN.MACN='${macn}' and TT_MA_CN.MATD_DA='${matd}' and TT_MA_CN.MAMA='${mama}'`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoCNMA(macn,mama) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE TT_MA_CN.MACN='${macn}' and TT_MA_CN.MAMA='${mama}'`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoTMA(tenma) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE MONAN.TENMA='${tenma}'`
+        console.log(sql)
+        try {
+            const list1 = await db.raw(sql)
+            console.log(list1)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoCN(macn) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE TT_MA_CN.MACN='${macn}'`
+        try {
+            const list1 = await db.raw(sql)
+            return list1
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async findAllMonAnTheoTD(matd) {
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN 
+                    ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA WHERE TT_MA_CN.MATD_DA='${matd}'`
         try {
             const list1 = await db.raw(sql)
             return list1
@@ -75,11 +138,19 @@ export default {
             console.log(error);
         }
     },
-    async Themmondonhang(makh,macn,matdda,matcda,mama,tenma,gia,sl) {
-        const sql = `exec P_THEM_CHITIET_DH_DA '${macn}','${makh}',null,'${matdda}','${mama}',N'${tenma}','${sl}','${gia}'`
+    async Themmondonhang(macn,makh,matdda,mama,tenma,sl,gia) {
+        const sql = `exec P_THEM_CHITIET_DH_DA '${macn}','${makh}','${matdda}','${mama}',N'${tenma}',${sl},${gia}`
+        console.log(sql)
         try {
             await db.raw(sql)
-            console.log(hello)
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async Khachhangdathang(madh,hinhthucthanhtoan,ghichu,thanhpho,quan,diachi) {
+        const sql = `exec KH_DATHANG '${madh}',N'${hinhthucthanhtoan}',N'${ghichu}',N'${thanhpho}',N'${quan}',N'${diachi}'`
+        try {
+            await db.raw(sql)
         } catch (error) {
             console.log(error);
         }

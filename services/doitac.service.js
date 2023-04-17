@@ -29,7 +29,8 @@ export default {
         }
     },
     async findAllMonAn_doitac(matdda) {
-        const sql = `select * from MONAN where MATD_DA = '${matdda}'`
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN
+                                                                                                                  ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA where TT_MA_CN.MATD_DA = '${matdda}'`
         try {
             const list1 = await db.raw(sql)
             return list1
@@ -47,9 +48,11 @@ export default {
         }
     },
     async findAllMonAn(mama,matd) {
-        const sql = `select * from MONAN where MAMA = '${mama}' and MATD_DA='${matd}'`
+        const sql = `select TT_MA_CN.MACN,TT_MA_CN.MATD_DA,TT_MA_CN.MAMA,SOLUONG,TENMA,MIEUTA,GIA from MONAN JOIN TT_MA_CN
+                                                                                                                  ON MONAN.MATD_DA = TT_MA_CN.MATD_DA AND MONAN.MAMA = TT_MA_CN.MAMA where TT_MA_CN.MAMA = '${mama}' and TT_MA_CN.MATD_DA='${matd}'`
         try {
             const list1 = await db.raw(sql)
+            console.log(list1)
             return list1
         } catch (error) {
             console.log(error);
@@ -105,4 +108,5 @@ export default {
             console.log(error);
         }
     },
+
 }

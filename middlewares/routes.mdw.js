@@ -177,19 +177,67 @@ console.log(madh)
     res.send(list1);
   });
 
+  app.get('/api/mamamacnmatd', async function (req, res) {
+     const {macn,matdda} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoCNTD(macn,matdda);
+    res.send(list);
+  });
+  app.get('/api/monanmamamatdmacn', async function (req, res) {
+    const {mama,macn,matd} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoCNTDMA(macn,matd,mama);
+    res.send(list);
+  });
+  app.get('/api/monanmamamacn', async function (req, res) {
+    const {mama,macn} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoCNMA(macn,mama);
+    res.send(list);
+  });
+  app.get('/api/monantenma', async function (req, res) {
+    const {tenma} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoTMA(tenma);
+    res.send(list);
+  });
+  app.get('/api/mamamacn', async function (req, res) {
+    const {macn} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoCN(macn);
+    res.send(list);
+  });
+  app.get('/api/mamamatd', async function (req, res) {
+    const {matdda} = req.query;
+    const list = await KhachhangService.findAllMonAnTheoTD(matdda);
+    res.send(list);
+  });
+
+
   app.get('/api/themmonhang', async function (req, res) {
     const macn = req.query.macn;
+    const makh = res.locals.authUser.username
+
     const matdda = req.query.matdda;
     const mama = req.query.mama;
     const tenma = req.query.tenma;
-    const matcda = req.query.matcda;
+    // const matcda = req.query.matcda;
 
     const sl = req.query.sl;
     const gia = req.query.gia;
     // const mieuta = req.query.mieuta
-    const makh = res.locals.authUser.username
     const list = []
-    await KhachhangService.Themmondonhang(makh,macn,matdda,matcda,mama,tenma,gia,sl);
+    await KhachhangService.Themmondonhang(macn,makh,matdda,mama,tenma,sl,gia);
+    console.log(list)
+    res.send(list);
+  });
+  app.get('/api/khachhangdathang', async function (req, res) {
+    const madh = req.query.madh;
+
+    const hinhthucthanhtoan = req.query.hinhthucthanhtoan;
+    const ghichu = req.query.ghichu;
+    const thanhpho = req.query.thanhpho;
+    const quan = req.query.quan;
+
+    const diachi = req.query.diachi;
+
+    const list = []
+    await KhachhangService.Khachhangdathang(madh,hinhthucthanhtoan,ghichu,thanhpho,quan,diachi) ;
     console.log(list)
     res.send(list);
   });
